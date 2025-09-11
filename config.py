@@ -1,4 +1,6 @@
+
 from pathlib import Path
+
 
 # Rutas base
 BASE_DIR = Path(__file__).resolve().parent

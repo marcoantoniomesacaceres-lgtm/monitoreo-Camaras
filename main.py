@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from modules import storage, alerts, notifications
 
+
+
 app = FastAPI()
 
 # Inicializar base de datos
-storage.init_db()
+if __name__ == "__main__":
+    storage.init_db()
+    storage.save_event("inicio")
+    print(storage.get_stats())
 
 # Estado en memoria (simplificado)
 STATE = {
