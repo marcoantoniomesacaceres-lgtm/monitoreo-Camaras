@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SISMONICAMARAS Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script>
+    async function updateStatus() {
+      const res = await fetch("/status");
+      const data = await res.json();
+      document.getElementById("inside").innerText = data.inside;
+      document.getElementById("entered").innerText = data.entered;
+      document.getElementById("exited").innerText = data.exited;
+    }
+
+    async function sendEvent(action) {
+      await fetch(`/event/${action}`, { method: "POST" });
+      updateStatus();
+    }
+
+    setInterval(updateStatus, 2000);
+    window.onload = updateStatus;
+  </script>
+</head>
+<body>
+  <!-- Encabezado con logo de la empresa -->
+  <header>
+    <h1>HI - TECH PEOPLE SAS</h1>
+    <h2>Sistema de Monitoreo de Cámaras</h2>
+  </header>
+
+  <!-- Video en vivo -->
+  <section class="camera">
+    <h3>📷 Cámara en Tiempo Real</h3>
+    <img src="/video" alt="Cámara en vivo" id="video-stream">
+  </section>
+
+  <!-- Estado -->
+  <section class="status">
+    <h3>📊 Estado Actual</h3>
+    <p><strong>Personas dentro:</strong> <span id="inside">0</span></p>
+    <p><strong>Total Entradas:</strong> <span id="entered">0</span></p>
+    <p><strong>Total Salidas:</strong> <span id="exited">0</span></p>
+  </section>
+
+  <!-- Controles -->
+  <section class="controls">
+    <button onclick="sendEvent('entered')">➕ Entrada</button>
+    <button onclick="sendEvent('exited')">➖ Salida</button>
+  </section>
+
+  <!-- Reportes -->
+  <section class="reports">
+    <h3>📑 Reportes</h3>
+    <button onclick="window.location.href='/reports/daily'">Reporte Diario</button>
+    <button onclick="window.location.href='/reports/weekly'">Reporte Semanal</button>
+    <button onclick="window.location.href='/reports/monthly'">Reporte Mensual</button>
+  </section>
+</body>
+</html>

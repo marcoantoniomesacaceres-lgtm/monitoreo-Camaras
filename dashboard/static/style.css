@@ -1,0 +1,63 @@
+/* Fondo con imagen y estilo moderno */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: url('/static/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+}
+
+header {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+header h1 {
+  font-size: 42px;
+  color: #4da6ff;
+  margin: 0;
+}
+
+header h2 {
+  font-size: 20px;
+  color: #ddd;
+  margin: 5px 0 0 0;
+}
+
+section {
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+}
+
+.status p {
+  font-size: 20px;
+}
+
+button {
+  margin: 10px;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #4da6ff;
+  color: white;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background-color: #1a75ff;
+}
+
+.camera img {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 12px;
+  border: 3px solid #4da6ff;
+}
