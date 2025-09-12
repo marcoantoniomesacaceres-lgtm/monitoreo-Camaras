@@ -18,6 +18,16 @@
       updateStatus();
     }
 
+    async function toggleCamera() {
+      const res = await fetch("/toggle_camera", {method: "POST"});
+      const data = await res.json();
+      if (data.camera_active) {
+          document.getElementById("videoFeed").src = "/video";
+      } else {
+          document.getElementById("videoFeed").src = "";
+      }
+    }
+
     setInterval(updateStatus, 2000);
     window.onload = updateStatus;
   </script>
@@ -25,14 +35,19 @@
 <body>
   <!-- Encabezado con logo de la empresa -->
   <header>
-    <h1>HI - TECH PEOPLE SAS</h1>
+    <h1 style="color: blue;">HI - TECH PEOPLE SAS</h1>
     <h2>Sistema de Monitoreo de Cámaras</h2>
   </header>
 
-  <!-- Video en vivo -->
-  <section class="camera">
+  <!-- Controles de la cámara -->
+  <section class="camera-control" style="text-align:center; margin:20px;">
     <h3>📷 Cámara en Tiempo Real</h3>
-    <img src="/video" alt="Cámara en vivo" id="video-stream">
+    <button onclick="toggleCamera()" style="padding:10px 20px; background:blue; color:white; border-radius:10px;">
+      Encender/Apagar Cámara
+    </button>
+    <div style="margin-top:15px;">
+      <img id="videoFeed" src="" width="640" height="480" alt="Video en vivo"/>
+    </div>
   </section>
 
   <!-- Estado -->
@@ -43,7 +58,7 @@
     <p><strong>Total Salidas:</strong> <span id="exited">0</span></p>
   </section>
 
-  <!-- Controles -->
+  <!-- Controles manuales -->
   <section class="controls">
     <button onclick="sendEvent('entered')">➕ Entrada</button>
     <button onclick="sendEvent('exited')">➖ Salida</button>
