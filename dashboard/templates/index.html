@@ -28,8 +28,22 @@
       }
     }
 
+    async function updateDurations() {
+      const res = await fetch("/durations");
+      const data = await res.json();
+      let html = "";
+      for (const [id, seconds] of Object.entries(data)) {
+        html += `<p>Persona ${id}: ${Math.round(seconds)} segundos</p>`;
+      }
+      document.getElementById("durations").innerHTML = html;
+    }
+
     setInterval(updateStatus, 2000);
-    window.onload = updateStatus;
+    setInterval(updateDurations, 5000);
+    window.onload = function() {
+      updateStatus();
+      updateDurations();
+    }
   </script>
 </head>
 <body>
@@ -56,6 +70,12 @@
     <p><strong>Personas dentro:</strong> <span id="inside">0</span></p>
     <p><strong>Total Entradas:</strong> <span id="entered">0</span></p>
     <p><strong>Total Salidas:</strong> <span id="exited">0</span></p>
+  </section>
+
+  <!-- Tiempos de permanencia -->
+  <section class="durations">
+    <h3>⏱️ Tiempos de Permanencia</h3>
+    <div id="durations"></div>
   </section>
 
   <!-- Controles manuales -->
