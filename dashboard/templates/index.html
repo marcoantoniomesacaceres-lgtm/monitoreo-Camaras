@@ -4,13 +4,6 @@
   <meta charset="UTF-8">
   <title>SISMONICAMARAS Dashboard</title>
   <link rel="stylesheet" href="/static/style.css">
-  
-  <!-- Fuente moderna -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  
-  <!-- Iconos FontAwesome (cambia "your-kit-id" por tu ID real de FontAwesome) -->
-  <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
-
   <script>
     async function updateStatus() {
       const res = await fetch("/status");
@@ -18,11 +11,6 @@
       document.getElementById("inside").innerText = data.inside;
       document.getElementById("entered").innerText = data.entered;
       document.getElementById("exited").innerText = data.exited;
-    }
-
-    async function sendEvent(action) {
-      await fetch(`/event/${action}`, { method: "POST" });
-      updateStatus();
     }
 
     async function toggleCamera() {
@@ -54,50 +42,43 @@
   </script>
 </head>
 <body>
-  <!-- Encabezado -->
+  <!-- Encabezado con logo de la empresa -->
   <header>
-    <h1>HI - TECH PEOPLE SAS</h1>
+    <h1 style="color: blue;">HI - TECH PEOPLE SAS</h1>
     <h2>Sistema de Monitoreo de Cámaras</h2>
   </header>
 
-  <!-- Cámara -->
-  <section class="camera-control">
-    <h3><i class="fas fa-video"></i> Cámara en Tiempo Real</h3>
-    <button onclick="toggleCamera()">
-      <i class="fas fa-power-off"></i> Encender/Apagar Cámara
+  <!-- Controles de la cámara -->
+  <section class="camera-control" style="text-align:center; margin:20px;">
+    <h3>📷 Cámara en Tiempo Real</h3>
+    <button onclick="toggleCamera()" style="padding:10px 20px; background:blue; color:white; border-radius:10px;">
+      Encender/Apagar Cámara
     </button>
-    <div>
+    <div style="margin-top:15px;">
       <img id="videoFeed" src="" width="640" height="480" alt="Video en vivo"/>
     </div>
   </section>
 
   <!-- Estado -->
   <section class="status">
-    <h3><i class="fas fa-users"></i> Estado Actual</h3>
+    <h3>📊 Estado Actual</h3>
     <p><strong>Personas dentro:</strong> <span id="inside">0</span></p>
     <p><strong>Total Entradas:</strong> <span id="entered">0</span></p>
     <p><strong>Total Salidas:</strong> <span id="exited">0</span></p>
   </section>
 
-  <!-- Permanencia -->
+  <!-- Tiempos de permanencia -->
   <section class="durations">
-    <h3><i class="fas fa-stopwatch"></i> Tiempos de Permanencia</h3>
+    <h3>⏱️ Tiempos de Permanencia</h3>
     <div id="durations"></div>
-  </section>
-
-  <!-- Controles -->
-  <section class="controls">
-    <h3><i class="fas fa-cogs"></i> Controles Manuales</h3>
-    <button onclick="sendEvent('entered')"><i class="fas fa-sign-in-alt"></i> Entrada</button>
-    <button onclick="sendEvent('exited')"><i class="fas fa-sign-out-alt"></i> Salida</button>
   </section>
 
   <!-- Reportes -->
   <section class="reports">
-    <h3><i class="fas fa-file-alt"></i> Reportes</h3>
-    <button onclick="window.location.href='/reports/daily'"><i class="fas fa-calendar-day"></i> Diario</button>
-    <button onclick="window.location.href='/reports/weekly'"><i class="fas fa-calendar-week"></i> Semanal</button>
-    <button onclick="window.location.href='/reports/monthly'"><i class="fas fa-calendar-alt"></i> Mensual</button>
+    <h3>📑 Reportes</h3>
+    <button onclick="window.location.href='/reports/daily'">Reporte Diario</button>
+    <button onclick="window.location.href='/reports/weekly'">Reporte Semanal</button>
+    <button onclick="window.location.href='/reports/monthly'">Reporte Mensual</button>
   </section>
 </body>
 </html>

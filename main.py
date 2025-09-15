@@ -4,20 +4,14 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import cv2
 from ultralytics import YOLO
-
 from modules import storage, alerts, notifications
 
 app = FastAPI()
 storage.init_db()
 
-# Estado en memoria
+# Estado global
 STATE = {"inside": 0, "entered": 0, "exited": 0}
-
-# Control de cámara
 CAMERA_ACTIVE = False
-
-# Control de IDs simulados
-CURRENT_PERSON_ID = 1
 
 # Configuración de templates
 templates = Jinja2Templates(directory="dashboard/templates")
@@ -26,6 +20,8 @@ app.mount("/static", StaticFiles(directory="dashboard/static"), name="static")
 # Cargar modelo YOLOv8
 model = YOLO("yolov8n.pt")
 
+# Historial de posiciones por ID para saber dirección de cruce
+last_positions = {}
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -34,72 +30,65 @@ async def home(request: Request):
         {"request": request, "state": STATE, "camera_active": CAMERA_ACTIVE},
     )
 
-
 @app.get("/status")
 async def get_status():
     return STATE
 
-
-@app.post("/event/{action}")
-async def register_event(action: str):
-    global CURRENT_PERSON_ID
-
-    if action not in ["entered", "exited"]:
-        return {"error": "Acción no válida"}
-
-    if action == "entered":
-        STATE["entered"] += 1
-        STATE["inside"] += 1
-        storage.save_event("entered", CURRENT_PERSON_ID)
-        CURRENT_PERSON_ID += 1
-    else:
-        STATE["exited"] += 1
-        STATE["inside"] = max(0, STATE["inside"] - 1)
-        storage.save_event("exited", CURRENT_PERSON_ID - 1)
-
-    alert_msg = alerts.check_capacity(STATE["inside"])
-    if alert_msg:
-        notifications.send_email("Alerta de aforo", alert_msg)
-
-    return {"status": "ok", "state": STATE}
-
-
-# 🚀 Nuevo endpoint de tiempos
+# 🚀 Endpoint de tiempos
 @app.get("/durations")
 async def get_durations():
     return storage.get_person_durations()
 
-
-# 📷 Video con YOLOv8
+# 📷 Video con YOLOv8 + Tracking
 def generate_video():
-    global CAMERA_ACTIVE
-    cap = cv2.VideoCapture(0)
+    global CAMERA_ACTIVE, last_positions
+
+    cap = cv2.VideoCapture(0)  # 👈 Cambia "0" por URL de cámara IP si usas una remota
+    line_y = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT) // 2)  # línea virtual horizontal
 
     while CAMERA_ACTIVE:
         success, frame = cap.read()
         if not success:
             break
 
-        results = model(frame, stream=True)
-        count_persons = 0
+        results = model.track(frame, persist=True, stream=True)
+
         for r in results:
+            if r.boxes.id is None:
+                continue
             for box in r.boxes:
                 cls = int(box.cls[0])
-                if model.names[cls] == "person":
-                    count_persons += 1
-                    x1, y1, x2, y2 = map(int, box.xyxy[0])
-                    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                    cv2.putText(
-                        frame,
-                        "Person",
-                        (x1, y1 - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.6,
-                        (0, 255, 0),
-                        2,
-                    )
+                if model.names[cls] != "person":
+                    continue
 
-        STATE["inside"] = count_persons
+                person_id = int(box.id[0])
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
+                cx, cy = (x1 + x2) // 2, (y1 + y2) // 2  # centro del bbox
+
+                # Dibujar detección
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.putText(frame, f"ID {person_id}", (x1, y1 - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                cv2.circle(frame, (cx, cy), 5, (0, 0, 255), -1)
+
+                # Lógica de cruce
+                if person_id in last_positions:
+                    prev_y = last_positions[person_id]
+                    # De abajo hacia arriba = entrada
+                    if prev_y > line_y and cy <= line_y:
+                        STATE["entered"] += 1
+                        STATE["inside"] += 1
+                        storage.save_event("entered", person_id)
+                    # De arriba hacia abajo = salida
+                    elif prev_y < line_y and cy >= line_y:
+                        STATE["exited"] += 1
+                        STATE["inside"] = max(0, STATE["inside"] - 1)
+                        storage.save_event("exited", person_id)
+
+                last_positions[person_id] = cy
+
+        # Dibujar línea virtual
+        cv2.line(frame, (0, line_y), (frame.shape[1], line_y), (255, 0, 0), 2)
 
         _, buffer = cv2.imencode(".jpg", frame)
         yield (
@@ -109,7 +98,6 @@ def generate_video():
 
     cap.release()
 
-
 @app.get("/video")
 async def video_feed():
     if not CAMERA_ACTIVE:
@@ -117,7 +105,6 @@ async def video_feed():
     return StreamingResponse(
         generate_video(), media_type="multipart/x-mixed-replace; boundary=frame"
     )
-
 
 @app.post("/toggle_camera")
 async def toggle_camera():
