@@ -1,10 +1,13 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse
+from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import cv2
 from ultralytics import YOLO
 from modules import storage, alerts, notifications
+from reports.daily_report import generate_daily_report
+from reports.weekly_report import generate_weekly_report
+from reports.monthly_report import generate_monthly_report
 
 app = FastAPI()
 storage.init_db()
@@ -23,6 +26,9 @@ model = YOLO("yolov8n.pt")
 # Historial de posiciones por ID para saber dirección de cruce
 last_positions = {}
 
+# -----------------------------
+# 🚀 Páginas principales
+# -----------------------------
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(
@@ -39,7 +45,27 @@ async def get_status():
 async def get_durations():
     return storage.get_person_durations()
 
+# -----------------------------
+# 📊 Reportes
+# -----------------------------
+@app.get("/reports/daily")
+async def daily_report():
+    filepath = generate_daily_report()
+    return FileResponse(filepath, media_type="text/csv", filename="daily_report.csv")
+
+@app.get("/reports/weekly")
+async def weekly_report():
+    filepath = generate_weekly_report()
+    return FileResponse(filepath, media_type="text/csv", filename="weekly_report.csv")
+
+@app.get("/reports/monthly")
+async def monthly_report():
+    filepath = generate_monthly_report()
+    return FileResponse(filepath, media_type="text/csv", filename="monthly_report.csv")
+
+# -----------------------------
 # 📷 Video con YOLOv8 + Tracking
+# -----------------------------
 def generate_video():
     global CAMERA_ACTIVE, last_positions
 
