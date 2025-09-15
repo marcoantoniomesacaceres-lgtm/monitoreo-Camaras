@@ -46,22 +46,22 @@ async def get_durations():
     return storage.get_person_durations()
 
 # -----------------------------
-# 📊 Reportes
+# 📊 Reportes (en PDF)
 # -----------------------------
 @app.get("/reports/daily")
 async def daily_report():
     filepath = generate_daily_report()
-    return FileResponse(filepath, media_type="text/csv", filename="daily_report.csv")
+    return FileResponse(filepath, media_type="application/pdf", filename="daily_report.pdf")
 
 @app.get("/reports/weekly")
 async def weekly_report():
     filepath = generate_weekly_report()
-    return FileResponse(filepath, media_type="text/csv", filename="weekly_report.csv")
+    return FileResponse(filepath, media_type="application/pdf", filename="weekly_report.pdf")
 
 @app.get("/reports/monthly")
 async def monthly_report():
     filepath = generate_monthly_report()
-    return FileResponse(filepath, media_type="text/csv", filename="monthly_report.csv")
+    return FileResponse(filepath, media_type="application/pdf", filename="monthly_report.pdf")
 
 # -----------------------------
 # 📷 Video con YOLOv8 + Tracking
