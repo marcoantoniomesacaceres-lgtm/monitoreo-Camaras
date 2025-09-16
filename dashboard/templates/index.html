@@ -48,18 +48,16 @@
 <body>
   <!-- Encabezado con logo de la empresa -->
   <header>
-    <h1 style="color: blue;">HI - TECH PEOPLE SAS</h1>
+    <h1>HI - TECH PEOPLE SAS</h1>
     <h2>Sistema de Monitoreo de Cámaras</h2>
   </header>
 
   <!-- Controles de la cámara -->
-  <section class="camera-control" style="text-align:center; margin:20px;">
+  <section class="camera-control">
     <h3>📷 Cámara en Tiempo Real</h3>
-    <button onclick="toggleCamera()" style="padding:10px 20px; background:blue; color:white; border-radius:10px;">
-      Encender/Apagar Cámara
-    </button>
-    <div style="margin-top:15px;">
-      <img id="videoFeed" src="" width="640" height="480" alt="Video en vivo"/>
+    <button onclick="toggleCamera()">Encender/Apagar Cámara</button>
+    <div>
+      <img id="videoFeed" src="" alt="Video en vivo"/>
     </div>
   </section>
 
@@ -85,4 +83,4 @@
     <button onclick="window.location.href='/reports/monthly'">Reporte Mensual</button>
   </section>
 </body>
-</html>
+</html>      
