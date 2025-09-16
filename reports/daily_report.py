@@ -29,16 +29,14 @@ def generate_daily_report():
                             topMargin=72, bottomMargin=72)
     story = []
 
-    # Estilos APA
+    # Estilos
     styles = getSampleStyleSheet()
-    title_style = ParagraphStyle(
-        "Title",
-        parent=styles["Title"],
-        fontName="Times-Bold",
-        fontSize=16,
-        alignment=1,  # centrado
-        spaceAfter=20,
-    )
+    title_style = ParagraphStyle("Title",
+                                 parent=styles["Title"],
+                                 fontName="Times-Bold",
+                                 fontSize=16,
+                                 alignment=1,
+                                 spaceAfter=20)
     normal_style = styles["Normal"]
 
     # Encabezado del reporte
@@ -49,7 +47,7 @@ def generate_daily_report():
         "Este reporte presenta los eventos registrados en el sistema de monitoreo de personas, bajo el modelo de control de accesos.",
         normal_style
     ))
-    story.append(Spacer(1, 20))  # 👈 en lugar de salto de página, solo un espacio
+    story.append(Spacer(1, 20))
 
     # Datos desde la BD
     conn = sqlite3.connect(DB_PATH)
@@ -85,7 +83,17 @@ def generate_daily_report():
         story.append(Spacer(1, 12))
         story.append(table)
 
+        # Totales
+        total_ingresos = sum(1 for row in data if row[1] == "entered")
+        total_salidas = sum(1 for row in data if row[1] == "exited")
+        balance = total_ingresos - total_salidas
+
+        story.append(Spacer(1, 20))
+        story.append(Paragraph(f"Total de ingresos: <b>{total_ingresos}</b>", normal_style))
+        story.append(Paragraph(f"Total de salidas: <b>{total_salidas}</b>", normal_style))
+        story.append(Paragraph(f"Balance (Ingresos - Salidas): <b>{balance}</b>", normal_style))
+
     # Construir PDF
     doc.build(story, onFirstPage=header_footer, onLaterPages=header_footer)
 
-    return filepath
+    return filepath 
