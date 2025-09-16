@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import os
 import cv2
 from ultralytics import YOLO
 from modules import storage, alerts, notifications
@@ -19,6 +20,14 @@ CAMERA_ACTIVE = False
 # Configuración de templates
 templates = Jinja2Templates(directory="dashboard/templates")
 app.mount("/static", StaticFiles(directory="dashboard/static"), name="static")
+
+# ⚡ Endpoint para favicon
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    favicon_path = os.path.join("dashboard", "static", "favicon.ico")
+    if os.path.exists(favicon_path):
+        return FileResponse(favicon_path)
+    return JSONResponse(status_code=404, content={"error": "favicon not found"})
 
 # Cargar modelo YOLOv8
 model = YOLO("yolov8n.pt")
