@@ -1,4 +1,6 @@
-/* Fuente moderna sin internet */ 
+/* ==========================
+   🎨 Estilos generales
+   ========================== */
 body {
   font-family: "Segoe UI", Tahoma, Arial, sans-serif;
   margin: 0;
@@ -7,37 +9,32 @@ body {
   background-size: cover;
   color: #fff;
   text-align: center;
-
-  /* ✅ Marca de agua */
-  position: relative;
+  position: relative; /* ✅ para marca de agua */
 }
 
 body::before {
   content: "";
   position: fixed;
-  bottom: 20px;   /* pegado abajo */
-  right: 20px;    /* pegado a la derecha */
-  width: 180px;   /* ajusta tamaño */
+  bottom: 20px;
+  right: 20px;
+  width: 180px;
   height: 180px;
   background: url('/static/Logo_Hi-tech-people-sas.png') no-repeat center center;
   background-size: contain;
-  opacity: 0.15;  /* transparencia */
-  z-index: 0;     /* atrás de todo */
+  opacity: 0.15;
+  z-index: 0;
   pointer-events: none;
 }
 
-/* Iconos (se usan emojis o SVG inline) */
-.icon {
-  margin-right: 6px;
-}
-
-/* Header */
+/* ==========================
+   🏷️ Encabezado
+   ========================== */
 header {
   padding: 20px;
   background: rgba(0, 0, 0, 0.7);
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   position: relative;
-  z-index: 1; /* ✅ sobre el logo */
+  z-index: 1;
 }
 header h1 {
   font-size: 40px;
@@ -52,7 +49,9 @@ header h2 {
   font-weight: 400;
 }
 
-/* Secciones (cards) */
+/* ==========================
+   📦 Secciones (cards)
+   ========================== */
 section {
   margin: 20px auto;
   padding: 20px;
@@ -62,7 +61,7 @@ section {
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   position: relative;
-  z-index: 1; /* ✅ asegura que estén sobre el logo */
+  z-index: 1;
 }
 section h3 {
   margin-bottom: 15px;
@@ -73,14 +72,10 @@ section h3 {
   justify-content: center;
 }
 
-/* Texto de estado */
-.status p {
-  font-size: 18px;
-  margin: 8px 0;
-}
-
-/* Botones */
-button {
+/* ==========================
+   📷 Cámara
+   ========================== */
+.camera-control button {
   margin: 8px;
   padding: 12px 25px;
   font-size: 15px;
@@ -95,16 +90,75 @@ button {
   gap: 8px;
   transition: transform 0.2s, background 0.3s;
 }
-button:hover {
+.camera-control button:hover {
   background-color: #1a75ff;
   transform: scale(1.05);
 }
 
-/* Cámara */
 .camera-control img {
   width: 100%;
   max-width: 700px;
   border-radius: 12px;
   border: 3px solid #4da6ff;
   margin-top: 15px;
+}
+
+/* ==========================
+   📊 Estado numérico
+   ========================== */
+.status p {
+  font-size: 18px;
+  margin: 8px 0;
+}
+.status span {
+  font-weight: bold;
+  color: #fff;
+}
+
+/* ==========================
+   🚦 Estado de cámara (semáforo)
+   ========================== */
+#cameraStatus {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 10px;
+}
+.status-online {
+  background-color: #16a34a; /* verde */
+}
+.status-offline {
+  background-color: #dc2626; /* rojo */
+}
+.status-reconnecting {
+  background-color: #facc15; /* amarillo */
+  color: #000;
+}
+
+/* ==========================
+   ⏱️ Duraciones
+   ========================== */
+.durations p {
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+/* ==========================
+   📑 Reportes
+   ========================== */
+.reports button {
+  margin: 5px;
+  padding: 12px 20px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+.reports button:hover {
+  background: #059669;
+  transform: scale(1.05);
 } 

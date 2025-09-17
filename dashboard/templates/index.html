@@ -4,37 +4,87 @@
   <meta charset="UTF-8">
   <title>SISMONICAMARAS Dashboard</title>
 
-  <!-- ✅ Agregado favicon -->
+  <!-- ✅ Favicon -->
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
 
   <link rel="stylesheet" href="/static/style.css">
   <script>
     async function updateStatus() {
-      const res = await fetch("/status");
-      const data = await res.json();
-      document.getElementById("inside").innerText = data.inside;
-      document.getElementById("entered").innerText = data.entered;
-      document.getElementById("exited").innerText = data.exited;
+      try {
+        const res = await fetch("/status");
+        const data = await res.json();
+
+        // Actualizar contadores
+        document.getElementById("inside").innerText = data.inside ?? data.state?.inside ?? 0;
+        document.getElementById("entered").innerText = data.entered ?? data.state?.entered ?? 0;
+        document.getElementById("exited").innerText = data.exited ?? data.state?.exited ?? 0;
+
+        // 🚦 Actualizar estado de la cámara con clases (semáforo)
+        const cameraStatus = document.getElementById("cameraStatus");
+        if (data.camera_status === "ONLINE") {
+          cameraStatus.innerText = "ONLINE";
+          cameraStatus.className = "status-online";
+        } else if (data.camera_status === "RECONNECTING") {
+          cameraStatus.innerText = "RECONNECTING...";
+          cameraStatus.className = "status-reconnecting";
+        } else {
+          cameraStatus.innerText = "OFFLINE";
+          cameraStatus.className = "status-offline";
+        }
+
+        // Encender/apagar feed de video
+        const videoFeed = document.getElementById("videoFeed");
+        if (data.camera_active && videoFeed.src === "") {
+          videoFeed.src = "/video";
+        }
+        if (!data.camera_active && videoFeed.src !== "") {
+          videoFeed.src = "";
+        }
+      } catch (e) {
+        console.error("❌ Error obteniendo estado:", e);
+      }
     }
 
     async function toggleCamera() {
-      const res = await fetch("/toggle_camera", {method: "POST"});
-      const data = await res.json();
-      if (data.camera_active) {
-          document.getElementById("videoFeed").src = "/video";
-      } else {
-          document.getElementById("videoFeed").src = "";
+      try {
+        const res = await fetch("/toggle_camera", { method: "POST" });
+        const data = await res.json();
+
+        const cameraStatus = document.getElementById("cameraStatus");
+        if (data.camera_status === "ONLINE") {
+          cameraStatus.innerText = "ONLINE";
+          cameraStatus.className = "status-online";
+        } else if (data.camera_status === "RECONNECTING") {
+          cameraStatus.innerText = "RECONNECTING...";
+          cameraStatus.className = "status-reconnecting";
+        } else {
+          cameraStatus.innerText = "OFFLINE";
+          cameraStatus.className = "status-offline";
+        }
+
+        const videoFeed = document.getElementById("videoFeed");
+        if (data.camera_active) {
+          videoFeed.src = "/video";
+        } else {
+          videoFeed.src = "";
+        }
+      } catch (e) {
+        console.error("❌ Error alternando cámara:", e);
       }
     }
 
     async function updateDurations() {
-      const res = await fetch("/durations");
-      const data = await res.json();
-      let html = "";
-      for (const [id, seconds] of Object.entries(data)) {
-        html += `<p>Persona ${id}: ${Math.round(seconds)} segundos</p>`;
+      try {
+        const res = await fetch("/durations");
+        const data = await res.json();
+        let html = "";
+        for (const [id, seconds] of Object.entries(data)) {
+          html += `<p>Persona ${id}: ${Math.round(seconds)} segundos</p>`;
+        }
+        document.getElementById("durations").innerHTML = html;
+      } catch (e) {
+        console.error("❌ Error obteniendo tiempos de permanencia:", e);
       }
-      document.getElementById("durations").innerHTML = html;
     }
 
     setInterval(updateStatus, 2000);
@@ -46,7 +96,7 @@
   </script>
 </head>
 <body>
-  <!-- Encabezado con logo de la empresa -->
+  <!-- Encabezado -->
   <header>
     <h1>HI - TECH PEOPLE SAS</h1>
     <h2>Sistema de Monitoreo de Cámaras</h2>
@@ -67,6 +117,12 @@
     <p><strong>Personas dentro:</strong> <span id="inside">0</span></p>
     <p><strong>Total Entradas:</strong> <span id="entered">0</span></p>
     <p><strong>Total Salidas:</strong> <span id="exited">0</span></p>
+
+    <!-- 🚦 Estado de la cámara con colores -->
+    <p>
+      <strong>Estado de Cámara:</strong>
+      <span id="cameraStatus" class="status-offline">OFFLINE</span>
+    </p>
   </section>
 
   <!-- Tiempos de permanencia -->
@@ -83,4 +139,4 @@
     <button onclick="window.location.href='/reports/monthly'">Reporte Mensual</button>
   </section>
 </body>
-</html>      
+</html>
