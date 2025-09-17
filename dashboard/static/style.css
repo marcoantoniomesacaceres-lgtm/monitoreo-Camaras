@@ -17,9 +17,9 @@ body::before {
   position: fixed;
   bottom: 20px;   /* pegado abajo */
   right: 20px;    /* pegado a la derecha */
-  width: 200px;   /* ajusta tamaño */
-  height: 200px;
-  background: url('/static/logo_Hi-tech-people-sas.png') no-repeat center center;
+  width: 180px;   /* ajusta tamaño */
+  height: 180px;
+  background: url('/static/Logo_Hi-tech-people-sas.png') no-repeat center center;
   background-size: contain;
   opacity: 0.15;  /* transparencia */
   z-index: 0;     /* atrás de todo */
