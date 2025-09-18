@@ -106,13 +106,25 @@
     <h2>Sistema de Monitoreo de Cámaras</h2>
   </header>
 
-  <!-- Controles de la cámara -->
+    <!-- Controles de la cámara -->
   <section class="camera-control">
     <h3>📷 Cámara en Tiempo Real</h3>
-    <button onclick="toggleCamera()">Encender/Apagar Cámara</button>
+    <button id="toggleCameraBtn" onclick="toggleCamera()">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+          width="16" height="16" 
+          fill="currentColor" 
+          viewBox="0 0 16 16"
+          style="vertical-align: middle; margin-right: 5px;">
+        <path d="M10.5 3a.5.5 0 0 1 .5.5v1.528l2.528-1.264A.5.5 0 0 1 14 4.236v7.528a.5.5 0 0 1-.472.472L11 11.472V13.5a.5.5 0 0 1-.5.5h-9A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h9z"/>
+      </svg>
+      Video en vivo
+    </button>
     <div>
-      <img id="videoFeed" src="" alt="Video en vivo"/>
-    </div>
+  <img id="videoFeed" 
+       src="" 
+       alt="Transmisión de vídeo"
+       onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;64&quot; height=&quot;64&quot; fill=&quot;%23aaa&quot; viewBox=&quot;0 0 16 16&quot;><path d=&quot;M6.5 3.5A1.5 1.5 0 0 0 5 5v6a1.5 1.5 0 0 0 1.5 1.5h4a1.5 1.5 0 0 0 1.5-1.5V9.972l2.528 1.264A.5.5 0 0 0 15 10.736V5.264a.5.5 0 0 0-.472-.472L12 6.028V5A1.5 1.5 0 0 0 10.5 3.5z&quot;/></svg>';">
+</div>
   </section>
 
   <!-- Estado -->

@@ -85,7 +85,7 @@ section h3 {
   background: #4da6ff;
   color: white;
   font-weight: bold;
-  display: inline-flex;
+  display: inline-flex;   /* ✅ ahora compatible con íconos */
   align-items: center;
   gap: 8px;
   transition: transform 0.2s, background 0.3s;
@@ -93,6 +93,9 @@ section h3 {
 .camera-control button:hover {
   background-color: #1a75ff;
   transform: scale(1.05);
+}
+.camera-control button svg {
+  flex-shrink: 0; /* ✅ evita que se deforme el ícono */
 }
 
 .camera-control img {
@@ -156,9 +159,15 @@ section h3 {
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
+  display: inline-flex;  /* ✅ también con iconos */
+  align-items: center;
+  gap: 6px;
   transition: transform 0.2s, background 0.3s;
 }
 .reports button:hover {
   background: #059669;
   transform: scale(1.05);
+}
+.reports button svg {
+  flex-shrink: 0;
 } 
