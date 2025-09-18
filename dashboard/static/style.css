@@ -104,6 +104,10 @@ section h3 {
   border-radius: 12px;
   border: 3px solid #4da6ff;
   margin-top: 15px;
+
+  /* 👇 Ajustes nuevos para el ícono base64 */
+  object-fit: contain; /* Evita que se deforme */
+  background: #000;    /* Fondo negro para simular pantalla apagada */
 }
 
 /* ==========================
