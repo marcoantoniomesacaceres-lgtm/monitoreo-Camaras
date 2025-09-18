@@ -43,6 +43,13 @@ STATE = {"inside": 0, "entered": 0, "exited": 0}
 CAMERA_ACTIVE = False  # control desde UI
 CAMERA_STATUS = "OFFLINE"  # "ONLINE", "OFFLINE", "RECONNECTING"
 
+# 🔤 Traducciones de estado de cámara
+STATUS_TRANSLATIONS = {
+    "ONLINE": "En línea",
+    "OFFLINE": "Fuera de línea",
+    "RECONNECTING": "Reconectando"
+}
+
 # Configuración de templates
 templates = Jinja2Templates(directory="dashboard/templates")
 app.mount("/static", StaticFiles(directory="dashboard/static"), name="static")
@@ -83,14 +90,21 @@ async def home(request: Request):
             "request": request,
             "state": STATE,
             "camera_active": CAMERA_ACTIVE,
-            "camera_status": CAMERA_STATUS,
+            "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
         },
     )
 
 @app.get("/status")
 async def get_status():
     logger.debug(f"📊 Estado solicitado: {STATE} - CAMERA_STATUS: {CAMERA_STATUS}")
-    return {"state": STATE, "camera_active": CAMERA_ACTIVE, "camera_status": CAMERA_STATUS}
+    camera_status_display = STATUS_TRANSLATIONS.get(
+        CAMERA_STATUS.split()[0], CAMERA_STATUS
+    )
+    return {
+        "state": STATE,
+        "camera_active": CAMERA_ACTIVE,
+        "camera_status": camera_status_display
+    }
 
 @app.get("/durations")
 async def get_durations():
@@ -121,7 +135,7 @@ async def monthly_report():
 # -----------------------------
 # 🔧 Utilidades para reconexión
 # -----------------------------
-def make_offline_frame(width=640, height=480, text="CAMERA OFFLINE"):
+def make_offline_frame(width=640, height=480, text="CÁMARA FUERA DE LÍNEA"):
     frame = np.zeros((height, width, 3), dtype=np.uint8)
     font = cv2.FONT_HERSHEY_SIMPLEX
     scale, thickness = 1.0, 2
@@ -274,4 +288,7 @@ async def toggle_camera():
         CAMERA_STATUS = "OFFLINE"
         logger.info("🛑 Cámara apagada")
         notify_camera_status("OFFLINE")
-    return {"camera_active": CAMERA_ACTIVE, "camera_status": CAMERA_STATUS} 
+    return {
+        "camera_active": CAMERA_ACTIVE,
+        "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS)
+    }      

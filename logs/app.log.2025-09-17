@@ -1,0 +1,347 @@
+2025-09-17 14:56:07,811 | INFO | root | 🚀 Aplicación iniciada y base de datos inicializada
+2025-09-17 14:56:08,242 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-17 14:56:38,217 | INFO | root | 📄 Página principal servida
+2025-09-17 14:56:39,954 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:56:44,536 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:56:49,565 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:56:54,534 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:56:57,338 | INFO | root | ✅ Cámara encendida
+2025-09-17 14:56:58,354 | INFO | root | 📷 Cámara iniciada para streaming
+2025-09-17 14:56:59,547 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:04,548 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:09,548 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:14,547 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:19,717 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:24,534 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:29,542 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:34,545 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:38,762 | INFO | root | 👤 Persona 5 salió
+2025-09-17 14:57:39,540 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:44,536 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:48,625 | INFO | root | 👤 Persona 22 salió
+2025-09-17 14:57:49,545 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:54,549 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:57:59,551 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:04,541 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:09,545 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:12,671 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:58:14,546 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:14,749 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:58:19,547 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:24,542 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:29,551 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:29,778 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:58:34,536 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:39,556 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:44,535 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:49,554 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:52,302 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:58:54,535 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:58:56,996 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:58:58,118 | INFO | root | 👤 Persona 29 entró
+2025-09-17 14:58:59,545 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:01,785 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:03,836 | INFO | root | 👤 Persona 29 entró
+2025-09-17 14:59:04,548 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:06,774 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:09,192 | INFO | root | 👤 Persona 29 entró
+2025-09-17 14:59:09,554 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:10,222 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:11,243 | INFO | root | 👤 Persona 29 entró
+2025-09-17 14:59:12,720 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:14,537 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:19,550 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:24,548 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:29,544 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:31,524 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:34,550 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:35,735 | INFO | root | 👤 Persona 29 entró
+2025-09-17 14:59:39,463 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:39,554 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:40,432 | INFO | root | 👤 Persona 29 entró
+2025-09-17 14:59:42,398 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:44,535 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:48,456 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:49,542 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:54,534 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 14:59:55,899 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:57,899 | INFO | root | 👤 Persona 29 entró
+2025-09-17 14:59:58,963 | INFO | root | 👤 Persona 29 salió
+2025-09-17 14:59:59,555 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:00,105 | INFO | root | 👤 Persona 29 entró
+2025-09-17 15:00:03,460 | INFO | root | 👤 Persona 29 salió
+2025-09-17 15:00:05,894 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:07,308 | INFO | root | 👤 Persona 29 entró
+2025-09-17 15:00:10,154 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:10,718 | INFO | root | 👤 Persona 29 salió
+2025-09-17 15:00:15,148 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:19,560 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:22,667 | INFO | root | 👤 Persona 29 salió
+2025-09-17 15:00:22,987 | INFO | root | 🛑 Cámara apagada
+2025-09-17 15:00:24,536 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:30,149 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:35,166 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:40,160 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:45,151 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:50,150 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:00:55,151 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:01:00,153 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:01:05,144 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:01:10,144 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:01:15,154 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:01:20,158 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:01:25,170 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:01:30,805 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:22:25,021 | INFO | root | 🚀 Aplicación iniciada y base de datos inicializada
+2025-09-17 15:22:25,443 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-17 15:22:27,102 | INFO | root | 📄 Página principal servida
+2025-09-17 15:22:27,682 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:22:32,330 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:22:37,354 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:22:42,344 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:22:47,008 | INFO | root | 📑 Reporte diario generado
+2025-09-17 15:22:47,350 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:22:50,781 | INFO | root | 📑 Reporte semanal generado
+2025-09-17 15:22:52,333 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:22:53,056 | INFO | root | 📑 Reporte mensual generado
+2025-09-17 15:22:58,263 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:23:03,142 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:23:08,165 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:23:13,151 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:23:18,149 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:23:22,336 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:23:27,354 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:03,312 | INFO | root | 🚀 Aplicación iniciada y base de datos inicializada
+2025-09-17 15:51:03,800 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-17 15:51:03,829 | INFO | root | 📄 Página principal servida
+2025-09-17 15:51:04,864 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:09,456 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:14,472 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:17,118 | INFO | root | ✅ Cámara encendida
+2025-09-17 15:51:18,139 | INFO | root | 📷 Cámara iniciada para streaming
+2025-09-17 15:51:19,479 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:24,463 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:29,473 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:34,475 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:39,458 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:44,475 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:49,470 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:54,509 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:51:59,460 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:03,239 | INFO | root | 👤 Persona 1 entró
+2025-09-17 15:52:04,466 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:09,469 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:14,482 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:19,468 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:24,468 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:26,917 | INFO | root | 👤 Persona 19 salió
+2025-09-17 15:52:29,465 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:34,472 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:39,456 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:44,468 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:50,304 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:55,160 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:52:59,672 | INFO | root | 👤 Persona 19 entró
+2025-09-17 15:53:00,157 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:05,243 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:10,156 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:15,161 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:20,154 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:25,154 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:30,148 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:34,497 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:39,471 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:44,465 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:49,462 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:54,479 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:53:59,470 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:04,468 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:09,459 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:14,464 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:19,455 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:24,509 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:29,472 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:34,474 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:39,462 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:44,463 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:49,467 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:54,477 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:54:59,461 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:04,471 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:09,473 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:14,478 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:19,455 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:24,461 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:29,474 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:34,461 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:39,469 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:44,471 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:49,466 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:54,470 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:55:59,458 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:04,467 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:09,455 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:14,469 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:19,467 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:24,464 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:29,468 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:34,477 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:39,474 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:44,460 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:44,797 | INFO | root | 📑 Reporte diario generado
+2025-09-17 15:56:50,166 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:56:55,219 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:57:00,144 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:57:04,465 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:57:09,466 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:57:14,464 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:57:19,496 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:57:25,634 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:57:30,181 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 15:58:24,429 | INFO | root | 🚀 Aplicación iniciada y base de datos inicializada
+2025-09-17 15:58:24,862 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-17 15:58:24,877 | INFO | root | 📄 Página principal servida
+2025-09-17 15:58:24,916 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:10:53,545 | INFO | root | 🚀 Aplicación iniciada y base de datos inicializada
+2025-09-17 16:10:53,893 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-17 16:28:50,217 | INFO | root | 🚀 Aplicación iniciada y base de datos inicializada
+2025-09-17 16:28:50,568 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-17 16:28:51,029 | INFO | root | 📄 Página principal servida
+2025-09-17 16:28:51,492 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:28:56,177 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:01,195 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:06,170 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:11,179 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:16,175 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:21,188 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:26,164 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:31,194 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:36,177 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:41,173 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:46,176 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:51,169 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:29:56,174 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:01,204 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:06,168 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:11,190 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:16,173 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:21,184 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:26,179 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:31,190 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:36,164 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:41,178 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:46,175 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:51,179 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:30:56,169 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:01,173 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:06,168 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:11,176 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:16,167 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:21,187 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:26,170 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:28,276 | INFO | root | ✅ Cámara encendida
+2025-09-17 16:31:29,379 | INFO | root | 📷 Cámara iniciada para streaming
+2025-09-17 16:31:31,171 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:36,173 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:41,167 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:46,162 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:51,186 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:31:56,169 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:01,181 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:06,160 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:11,192 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:16,163 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:21,166 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:26,180 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:26,729 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:32:29,944 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:32:31,188 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:38,033 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:38,703 | INFO | root | 👤 Persona 1 salió
+2025-09-17 16:32:42,149 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:43,235 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:32:47,144 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:52,152 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:32:52,182 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:32:53,197 | INFO | root | 👤 Persona 1 salió
+2025-09-17 16:32:55,235 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:32:57,142 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:02,143 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:07,141 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:10,377 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:33:12,152 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:16,186 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:21,179 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:26,166 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:28,495 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:33:29,564 | INFO | root | 👤 Persona 1 salió
+2025-09-17 16:33:31,170 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:36,172 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:38,134 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:33:41,170 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:41,984 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:33:42,986 | INFO | root | 👤 Persona 1 salió
+2025-09-17 16:33:43,927 | INFO | root | 👤 Persona 7 entró
+2025-09-17 16:33:46,185 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:51,173 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:33:56,170 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:01,173 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:03,668 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:34:06,164 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:11,175 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:14,466 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:34:16,165 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:21,166 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:26,161 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:31,174 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:31,494 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:34:32,529 | INFO | root | 👤 Persona 1 salió
+2025-09-17 16:34:36,162 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:41,180 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:42,976 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:34:46,163 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:51,185 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:34:56,164 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:01,176 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:06,163 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:11,172 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:16,174 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:21,172 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:26,162 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:26,937 | INFO | root | 👤 Persona 7 entró
+2025-09-17 16:35:31,180 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:36,175 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:41,169 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:46,177 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:50,185 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:35:51,178 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:35:56,170 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:01,168 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:06,176 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:10,931 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:36:11,174 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:16,072 | INFO | root | 👤 Persona 1 entró
+2025-09-17 16:36:16,166 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:17,241 | INFO | root | 👤 Persona 1 salió
+2025-09-17 16:36:21,180 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:26,171 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:31,188 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:36,174 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:41,179 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:46,163 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:51,260 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:36:56,209 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:01,183 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:06,163 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:11,168 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:16,165 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:21,176 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:26,173 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:31,183 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:36,174 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:41,189 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:46,176 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:51,178 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:37:56,172 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:38:01,177 | INFO | root | ⏱️ Consulta de tiempos de permanencia
+2025-09-17 16:38:06,174 | INFO | root | ⏱️ Consulta de tiempos de permanencia

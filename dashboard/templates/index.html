@@ -9,6 +9,29 @@
 
   <link rel="stylesheet" href="/static/style.css">
   <script>
+    // 👇 Mapea inglés -> español
+    function traducirEstado(estado) {
+      switch (estado.toLowerCase()) {
+        case "online": return "En línea";
+        case "offline": return "Fuera de línea";
+        case "reconnecting": return "Reconectando...";
+        default: return estado;
+      }
+    }
+
+    function actualizarEstadoCamera(estado) {
+      const cameraStatus = document.getElementById("cameraStatus");
+
+      // ✅ Texto en español
+      cameraStatus.textContent = traducirEstado(estado);
+
+      // ✅ Clases (semáforo)
+      cameraStatus.className = "";
+      if (estado.toLowerCase() === "online") cameraStatus.classList.add("status-online");
+      if (estado.toLowerCase() === "offline") cameraStatus.classList.add("status-offline");
+      if (estado.toLowerCase() === "reconnecting") cameraStatus.classList.add("status-reconnecting");
+    }
+
     async function updateStatus() {
       try {
         const res = await fetch("/status");
@@ -19,18 +42,8 @@
         document.getElementById("entered").innerText = data.entered ?? data.state?.entered ?? 0;
         document.getElementById("exited").innerText = data.exited ?? data.state?.exited ?? 0;
 
-        // 🚦 Actualizar estado de la cámara con clases (semáforo)
-        const cameraStatus = document.getElementById("cameraStatus");
-        if (data.camera_status === "ONLINE") {
-          cameraStatus.innerText = "ONLINE";
-          cameraStatus.className = "status-online";
-        } else if (data.camera_status === "RECONNECTING") {
-          cameraStatus.innerText = "RECONNECTING...";
-          cameraStatus.className = "status-reconnecting";
-        } else {
-          cameraStatus.innerText = "OFFLINE";
-          cameraStatus.className = "status-offline";
-        }
+        // 🚦 Estado de la cámara
+        actualizarEstadoCamera(data.camera_status ?? "offline");
 
         // Encender/apagar feed de video
         const videoFeed = document.getElementById("videoFeed");
@@ -50,17 +63,8 @@
         const res = await fetch("/toggle_camera", { method: "POST" });
         const data = await res.json();
 
-        const cameraStatus = document.getElementById("cameraStatus");
-        if (data.camera_status === "ONLINE") {
-          cameraStatus.innerText = "ONLINE";
-          cameraStatus.className = "status-online";
-        } else if (data.camera_status === "RECONNECTING") {
-          cameraStatus.innerText = "RECONNECTING...";
-          cameraStatus.className = "status-reconnecting";
-        } else {
-          cameraStatus.innerText = "OFFLINE";
-          cameraStatus.className = "status-offline";
-        }
+        // 🚦 Estado de la cámara
+        actualizarEstadoCamera(data.camera_status ?? "offline");
 
         const videoFeed = document.getElementById("videoFeed");
         if (data.camera_active) {
@@ -121,7 +125,7 @@
     <!-- 🚦 Estado de la cámara con colores -->
     <p>
       <strong>Estado de Cámara:</strong>
-      <span id="cameraStatus" class="status-offline">OFFLINE</span>
+      <span id="cameraStatus" class="status-offline">Fuera de línea</span>
     </p>
   </section>
 
