@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -291,4 +291,75 @@ async def toggle_camera():
     return {
         "camera_active": CAMERA_ACTIVE,
         "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS)
-    }      
+    }
+
+# -----------------------------
+# 🩺 Health & Readiness Checks
+# -----------------------------
+@app.get("/health")
+async def health():
+    """Verifica si el servicio está vivo."""
+    return {"status": "ok"}
+
+@app.get("/readiness")
+async def readiness():
+    """Verifica si el sistema está listo (DB + cámara/modelo)."""
+    try:
+        # ✅ Chequeo de base de datos
+        storage.get_stats()  # si falla, lanza excepción
+
+        # ✅ Chequeo de modelo YOLO
+        if model is None:
+            raise RuntimeError("YOLO no cargado")
+
+        # ✅ (Opcional) Chequeo de cámara
+        # cap = cv2.VideoCapture(0)
+        # if not cap.isOpened():
+        #     raise RuntimeError("Cámara no disponible")
+        # cap.release()
+
+        return {"status": "ready"}
+    except Exception as e:
+        logger.error(f"❌ Readiness check failed: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"status": "not ready", "error": str(e)}
+        )
+
+# -----------------------------
+# 📊 Métricas Prometheus
+# -----------------------------
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+
+# 🔢 Definición de métricas
+REQUEST_COUNT = Counter(
+    "app_requests_total",
+    "Total de requests",
+    ["method", "endpoint"]
+)
+REQUEST_LATENCY = Histogram(
+    "app_request_latency_seconds",
+    "Latencia de requests",
+    ["endpoint"]
+)
+
+@app.middleware("http")
+async def add_metrics(request: Request, call_next):
+    """Middleware que mide requests y latencia para métricas."""
+    start_time = time.time()
+    response = await call_next(request)
+    latency = time.time() - start_time
+
+    REQUEST_COUNT.labels(
+        method=request.method, endpoint=request.url.path
+    ).inc()
+    REQUEST_LATENCY.labels(
+        endpoint=request.url.path
+    ).observe(latency)
+
+    return response
+
+@app.get("/metrics")
+async def metrics():
+    """Endpoint de métricas para Prometheus."""
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
