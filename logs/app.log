@@ -1,3 +1,25 @@
 2025-09-22 09:04:09,664 | INFO | root | 🚀 Aplicación iniciada
 2025-09-22 09:04:09,690 | INFO | root | ✅ Base de datos inicializada
 2025-09-22 09:04:10,193 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:07:19,491 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:07:19,510 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:07:20,026 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:09:06,005 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:09:06,027 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:09:06,716 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:09:35,726 | INFO | root | 👤 Persona 1 entered
+2025-09-22 09:09:37,479 | INFO | root | 👤 Persona 1 exited
+2025-09-22 09:13:21,250 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:13:21,272 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:13:21,819 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:13:22,340 | INFO | httpx | HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+2025-09-22 09:13:22,380 | INFO | httpx | HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+2025-09-22 09:13:22,411 | INFO | httpx | HTTP Request: GET http://testserver/durations "HTTP/1.1 200 OK"
+2025-09-22 09:24:21,618 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:24:21,640 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:24:22,033 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:24:22,134 | INFO | httpx | HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,152 | INFO | httpx | HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,172 | INFO | httpx | HTTP Request: GET http://testserver/durations "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,205 | INFO | httpx | HTTP Request: POST http://testserver/toggle_camera "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,227 | INFO | httpx | HTTP Request: GET http://testserver/readiness "HTTP/1.1 200 OK"
