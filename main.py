@@ -1,6 +1,8 @@
 import os
 import cv2
 import time
+import queue
+import threading
 import logging
 import numpy as np
 from logging.handlers import TimedRotatingFileHandler
@@ -10,6 +12,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from ultralytics import YOLO
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+
 from modules import storage, notifications
 from reports.daily_report import generate_daily_report
 from reports.weekly_report import generate_weekly_report
@@ -22,13 +25,16 @@ LOG_DIR = "logs"
 os.makedirs(LOG_DIR, exist_ok=True)
 LOG_FILE = os.path.join(LOG_DIR, "app.log")
 
-handler = TimedRotatingFileHandler(LOG_FILE, when="midnight", interval=1, backupCount=7, encoding="utf-8")
+handler = TimedRotatingFileHandler(
+    LOG_FILE, when="midnight", interval=1, backupCount=7, encoding="utf-8"
+)
 formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(name)s | %(message)s")
 handler.setFormatter(formatter)
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
+
 logger.info("🚀 Aplicación iniciada")
 
 # -----------------------------
@@ -58,15 +64,14 @@ app.mount("/static", StaticFiles(directory="dashboard/static"), name="static")
 # 🔍 Cargar modelo YOLO
 # -----------------------------
 try:
-    model = YOLO("yolov8n.pt")
+    model = YOLO("yolov8n.pt")   # 👈 modelo ligero por rendimiento
     logger.info("✅ Modelo YOLO cargado exitosamente")
 except Exception as e:
     model = None
     logger.error(f"❌ Error cargando modelo YOLO: {e}", exc_info=True)
 
 # Historial para debounce de eventos
-last_positions = {}
-last_events = {}
+last_positions, last_events = {}, {}
 EVENT_DEBOUNCE_SECONDS = 3
 
 # -----------------------------
@@ -100,8 +105,53 @@ class CircuitBreaker:
                 logger.error(f"❌ Circuit breaker {self.name} activado")
             raise e
 
+
 db_breaker = CircuitBreaker(name="DB")
 camera_breaker = CircuitBreaker(failure_threshold=5, recovery_time=15, name="CAMERA")
+
+# -----------------------------
+# 📷 Clase cámara optimizada
+# -----------------------------
+class CameraCapture(threading.Thread):
+    def __init__(self, src, frame_queue, max_fps=15):
+        super().__init__(daemon=True)
+        self.src = src
+        self.cap = cv2.VideoCapture(src)
+        self.queue = frame_queue
+        self.running = True
+        self.max_fps = max_fps
+        self.frame_time = 1.0 / max_fps
+
+    def run(self):
+        logger.info("🎥 Captura iniciada")
+        last_time = 0
+        while self.running:
+            ret, frame = self.cap.read()
+            if not ret:
+                time.sleep(0.05)
+                continue
+
+            now = time.time()
+            if now - last_time < self.frame_time:
+                continue  # limitamos FPS
+            last_time = now
+
+            if not self.queue.empty():
+                try:
+                    self.queue.get_nowait()  # 👈 descartamos frame viejo
+                except queue.Empty:
+                    pass
+
+            try:
+                self.queue.put_nowait(frame)
+            except queue.Full:
+                pass
+
+        self.cap.release()
+        logger.info("🎥 Captura detenida")
+
+    def stop(self):
+        self.running = False
 
 # -----------------------------
 # 🩺 Health & Readiness
@@ -109,6 +159,7 @@ camera_breaker = CircuitBreaker(failure_threshold=5, recovery_time=15, name="CAM
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
 
 @app.get("/readiness")
 async def readiness():
@@ -126,6 +177,10 @@ async def readiness():
 # -----------------------------
 REQUEST_COUNT = Counter("app_requests_total", "Total de requests", ["method", "endpoint"])
 REQUEST_LATENCY = Histogram("app_request_latency_seconds", "Latencia de requests", ["endpoint"])
+CAPTURE_LATENCY = Histogram("camera_capture_latency_seconds", "Latencia de captura de frames")
+INFERENCE_LATENCY = Histogram("camera_inference_latency_seconds", "Latencia de inferencia YOLO")
+FRAMES_PROCESSED = Counter("camera_frames_processed_total", "Frames procesados por postprocess")
+
 
 @app.middleware("http")
 async def add_metrics(request: Request, call_next):
@@ -136,6 +191,7 @@ async def add_metrics(request: Request, call_next):
     REQUEST_LATENCY.labels(endpoint=request.url.path).observe(latency)
     return response
 
+
 @app.get("/metrics")
 async def metrics():
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
@@ -145,17 +201,25 @@ async def metrics():
 # -----------------------------
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "state": STATE,
-        "camera_active": CAMERA_ACTIVE,
-        "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
-    })
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "state": STATE,
+            "camera_active": CAMERA_ACTIVE,
+            "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
+        },
+    )
+
 
 @app.get("/status")
 async def get_status():
-    return {"state": STATE, "camera_active": CAMERA_ACTIVE,
-            "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS)}
+    return {
+        "state": STATE,
+        "camera_active": CAMERA_ACTIVE,
+        "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
+    }
+
 
 @app.get("/durations")
 async def get_durations():
@@ -168,23 +232,25 @@ async def get_durations():
 async def daily_report():
     return FileResponse(generate_daily_report(), media_type="application/pdf", filename="daily_report.pdf")
 
+
 @app.get("/reports/weekly")
 async def weekly_report():
     return FileResponse(generate_weekly_report(), media_type="application/pdf", filename="weekly_report.pdf")
+
 
 @app.get("/reports/monthly")
 async def monthly_report():
     return FileResponse(generate_monthly_report(), media_type="application/pdf", filename="monthly_report.pdf")
 
 # -----------------------------
-# 📷 Cámara con YOLO + retries + debounce + circuit breaker
+# 📷 Cámara con pipeline
 # -----------------------------
-def make_offline_frame(width=640, height=480, text="CÁMARA FUERA DE LÍNEA"):
+def make_offline_frame(width=640, height=480, text="Camara cargando...."):
     frame = np.zeros((height, width, 3), dtype=np.uint8)
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(frame, text, (50, height // 2), font, 1, (0,0,255), 2, cv2.LINE_AA)
+    cv2.putText(frame, text, (50, height // 2), cv2.FONT_HERSHEY_SIMPLEX, 1, (128, 0, 8), 2, cv2.LINE_AA)
     _, buf = cv2.imencode(".jpg", frame)
     return buf.tobytes()
+
 
 def notify_camera_status(status, details=None):
     try:
@@ -195,95 +261,152 @@ def notify_camera_status(status, details=None):
     except Exception:
         logger.debug("No se pudo enviar notificación de cámara")
 
-def generate_video():
+
+def generate_video(resize_to=(480, 360), frame_skip=2, result_queue_size=5, output_queue_size=2):
     global CAMERA_ACTIVE, CAMERA_STATUS, last_positions, last_events
-    offline_frame = make_offline_frame()
 
-    while CAMERA_ACTIVE:
-        try:
-            cap = camera_breaker.call(cv2.VideoCapture, 0)
-        except Exception as e:
-            CAMERA_STATUS = "OFFLINE"
-            logger.warning(f"⚠️ Cámara no disponible ({e}), retry...")
-            notify_camera_status("OFFLINE", str(e))
-            time.sleep(2)
-            yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + offline_frame + b"\r\n"
-            continue
+    frame_queue = queue.Queue(maxsize=1)   # 👈 solo guardamos el último frame
+    result_queue = queue.Queue(maxsize=1)
+    output_queue = queue.Queue(maxsize=1)
+    stop_event = threading.Event()
+    offline_frame = make_offline_frame(width=resize_to[0], height=resize_to[1])
 
-        if not cap.isOpened():
-            CAMERA_STATUS = "OFFLINE"
-            logger.warning("⚠️ Cámara no se pudo abrir")
-            time.sleep(2)
-            yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + offline_frame + b"\r\n"
-            continue
+    last_valid_frame = offline_frame
 
-        CAMERA_STATUS = "ONLINE"
-        notify_camera_status("ONLINE")
-        while CAMERA_ACTIVE:
-            success, frame = cap.read()
-            if not success:
-                logger.warning("⚠️ Error de frame")
-                notify_camera_status("OFFLINE", "Fallo frame")
-                break
-
+    def put_latest(q: queue.Queue, item):
+        while not q.empty():
             try:
-                results = model.track(frame, persist=True, stream=True)
-            except Exception as e:
-                logger.error(f"❌ Error YOLO: {e}", exc_info=True)
-                _, buf = cv2.imencode(".jpg", frame)
-                yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
+                q.get_nowait()
+            except queue.Empty:
+                break
+        try:
+            q.put_nowait(item)
+        except queue.Full:
+            pass
+
+    # 🚀 Hilo A: captura
+    camera_thread = CameraCapture(0, frame_queue)
+    camera_thread.start()
+
+    # 🚀 Hilo B: inferencia
+    def inference_thread():
+        if model is None:
+            logger.error("❌ Modelo YOLO no cargado")
+            return
+        logger.info("🔬 Inference iniciado")
+        while CAMERA_ACTIVE and not stop_event.is_set():
+            try:
+                frame = frame_queue.get(timeout=2)
+            except queue.Empty:
                 continue
 
-            for r in results:
-                if not hasattr(r, "boxes") or r.boxes is None:
-                    continue
-                for box in r.boxes:
-                    if not hasattr(box, "id") or box.id is None:
+            frame = cv2.resize(frame, resize_to)
+
+            start = time.time()
+            try:
+                results = list(model.track(frame, persist=True, stream=True))
+            except Exception as e:
+                logger.error(f"❌ Error YOLO: {e}", exc_info=True)
+                results = []
+            INFERENCE_LATENCY.observe(time.time() - start)
+
+            put_latest(result_queue, (frame, results))
+        logger.info("🔬 Inference finalizado")
+
+    # 🚀 Hilo C: postprocess + DB
+    def postprocess_thread():
+        logger.info("🧩 Postprocess iniciado")
+        while CAMERA_ACTIVE and not stop_event.is_set():
+            try:
+                frame, results = result_queue.get(timeout=1.0)
+            except queue.Empty:
+                continue
+
+            try:
+                h_half = frame.shape[0] // 2
+                for r in results:
+                    if not hasattr(r, "boxes") or r.boxes is None:
                         continue
-                    cls = int(box.cls[0])
-                    if model.names[cls] != "person":
-                        continue
+                    for box in r.boxes:
+                        if not hasattr(box, "id") or box.id is None:
+                            continue
+                        cls = int(box.cls[0])
+                        if model.names[cls] != "person":
+                            continue
 
-                    person_id = int(box.id[0])
-                    _, y1, _, y2 = map(int, box.xyxy[0])
-                    cy = (y1 + y2) // 2
+                        person_id = int(box.id[0])
+                        _, y1, _, y2 = map(int, box.xyxy[0])
+                        cy = (y1 + y2) // 2
 
-                    if person_id in last_positions:
-                        prev_y = last_positions[person_id]
-                        action = "entered" if prev_y > frame.shape[0]//2 and cy <= frame.shape[0]//2 else \
-                                 "exited" if prev_y < frame.shape[0]//2 and cy >= frame.shape[0]//2 else None
+                        if person_id in last_positions:
+                            prev_y = last_positions[person_id]
+                            action = (
+                                "entered"
+                                if prev_y > h_half and cy <= h_half
+                                else "exited"
+                                if prev_y < h_half and cy >= h_half
+                                else None
+                            )
+                            if action:
+                                now = time.time()
+                                last_event = last_events.get(person_id)
+                                if not last_event or last_event["action"] != action or (
+                                    now - last_event["time"]
+                                ) > EVENT_DEBOUNCE_SECONDS:
+                                    if action == "entered":
+                                        STATE["entered"] += 1
+                                        STATE["inside"] += 1
+                                    else:
+                                        STATE["exited"] += 1
+                                        STATE["inside"] = max(0, STATE["inside"] - 1)
+                                    try:
+                                        db_breaker.call(storage.save_event, action, person_id)
+                                    except Exception as e:
+                                        logger.error(f"❌ Error DB: {e}")
+                                    logger.info(f"👤 Persona {person_id} {action}")
+                                    last_events[person_id] = {"action": action, "time": now}
 
-                        if action:
-                            now = time.time()
-                            last_event = last_events.get(person_id)
-                            if not last_event or last_event["action"] != action or (now - last_event["time"]) > EVENT_DEBOUNCE_SECONDS:
-                                if action == "entered":
-                                    STATE["entered"] += 1
-                                    STATE["inside"] += 1
-                                else:
-                                    STATE["exited"] += 1
-                                    STATE["inside"] = max(0, STATE["inside"] - 1)
+                        last_positions[person_id] = cy
 
-                                storage.save_event(action, person_id)
-                                logger.info(f"👤 Persona {person_id} {action}")
-                                last_events[person_id] = {"action": action, "time": now}
+                cv2.line(frame, (0, h_half), (frame.shape[1], h_half), (255, 0, 0), 2)
+                _, buf = cv2.imencode(".jpg", frame)
+                put_latest(output_queue, buf.tobytes())
+                FRAMES_PROCESSED.inc()
+            except Exception as e:
+                logger.error(f"❌ Postprocess error: {e}", exc_info=True)
+        logger.info("🧩 Postprocess finalizado")
 
-                    last_positions[person_id] = cy
+    # Lanzar hilos
+    threads = [
+        threading.Thread(target=inference_thread, daemon=True),
+        threading.Thread(target=postprocess_thread, daemon=True),
+    ]
+    for t in threads:
+        t.start()
 
-            cv2.line(frame, (0, frame.shape[0]//2), (frame.shape[1], frame.shape[0]//2), (255, 0, 0), 2)
-            _, buf = cv2.imencode(".jpg", frame)
-            yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
+    try:
+        while CAMERA_ACTIVE:
+            try:
+                jpeg = output_queue.get(timeout=0.5)
+                last_valid_frame = jpeg
+            except queue.Empty:
+                jpeg = last_valid_frame
+            yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + jpeg + b"\r\n"
+    finally:
+        stop_event.set()
+        camera_thread.stop()
+        time.sleep(0.2)
+        logger.info("🛑 Pipeline detenido")
 
-        cap.release()
-
-    CAMERA_STATUS = "OFFLINE"
-    notify_camera_status("OFFLINE", "Stream terminado")
-
+# -----------------------------
+# 📡 Endpoints cámara
+# -----------------------------
 @app.get("/video")
 async def video_feed():
     if not CAMERA_ACTIVE:
         return JSONResponse({"error": "Cámara apagada"})
     return StreamingResponse(generate_video(), media_type="multipart/x-mixed-replace; boundary=frame")
+
 
 @app.post("/toggle_camera")
 async def toggle_camera():
@@ -291,4 +414,7 @@ async def toggle_camera():
     CAMERA_ACTIVE = not CAMERA_ACTIVE
     CAMERA_STATUS = "ONLINE" if CAMERA_ACTIVE else "OFFLINE"
     notify_camera_status(CAMERA_STATUS)
-    return {"camera_active": CAMERA_ACTIVE, "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS)}
+    return {
+        "camera_active": CAMERA_ACTIVE,
+        "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
+    }
