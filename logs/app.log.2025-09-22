@@ -1,0 +1,628 @@
+2025-09-22 09:04:09,664 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:04:09,690 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:04:10,193 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:07:19,491 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:07:19,510 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:07:20,026 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:09:06,005 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:09:06,027 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:09:06,716 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:09:35,726 | INFO | root | 👤 Persona 1 entered
+2025-09-22 09:09:37,479 | INFO | root | 👤 Persona 1 exited
+2025-09-22 09:13:21,250 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:13:21,272 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:13:21,819 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:13:22,340 | INFO | httpx | HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+2025-09-22 09:13:22,380 | INFO | httpx | HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+2025-09-22 09:13:22,411 | INFO | httpx | HTTP Request: GET http://testserver/durations "HTTP/1.1 200 OK"
+2025-09-22 09:24:21,618 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:24:21,640 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:24:22,033 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:24:22,134 | INFO | httpx | HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,152 | INFO | httpx | HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,172 | INFO | httpx | HTTP Request: GET http://testserver/durations "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,205 | INFO | httpx | HTTP Request: POST http://testserver/toggle_camera "HTTP/1.1 200 OK"
+2025-09-22 09:24:22,227 | INFO | httpx | HTTP Request: GET http://testserver/readiness "HTTP/1.1 200 OK"
+2025-09-22 09:27:00,471 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:27:00,478 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:27:00,740 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 09:27:17,835 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 09:27:17,836 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 09:27:18,945 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 09:27:18,945 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 09:29:27,859 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 09:29:27,864 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 09:29:28,223 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:47:10,084 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:47:10,102 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:47:10,490 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:47:24,195 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:47:24,200 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:47:24,434 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:48:22,661 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:48:22,666 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:48:22,911 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:52:03,333 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:52:03,340 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:52:03,705 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:52:32,645 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:52:32,652 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:52:33,012 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:52:47,517 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:52:47,523 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:52:47,801 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:57:13,392 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:57:13,398 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:57:13,719 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 10:58:36,368 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 10:58:36,373 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 10:58:36,635 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 11:17:14,737 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 11:17:14,758 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 11:17:15,211 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 11:17:24,795 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 11:17:24,796 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 11:17:24,879 | INFO | root | 🔬 Inference iniciado
+2025-09-22 11:17:24,880 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 11:17:25,873 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 11:17:25,873 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 11:17:25,874 | INFO | root | 📷 Capture iniciado
+2025-09-22 11:24:46,781 | INFO | root | 🛑 Pipeline detenido
+2025-09-22 11:24:46,967 | INFO | root | 🧩 Postprocess finalizado
+2025-09-22 11:24:46,969 | INFO | root | 📷 Capture finalizado
+2025-09-22 11:25:04,911 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 11:25:04,921 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 11:25:05,352 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 11:35:32,498 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 11:35:32,504 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 11:35:32,846 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 11:50:14,221 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 11:50:14,324 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 11:50:15,290 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 11:50:19,793 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 11:50:19,794 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 11:50:19,873 | WARNING | tasks | Cámara no conectada, intentando reconexión...
+2025-09-22 11:50:19,876 | INFO | root | 🔬 Inference iniciado
+2025-09-22 11:50:19,877 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 11:50:20,174 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 11:50:20,182 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 11:50:20,676 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 11:50:22,822 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:23,852 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:24,867 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:26,357 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:28,243 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:31,942 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:33,049 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:34,338 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:36,528 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:37,916 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:39,703 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:40,717 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:41,947 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:50:42,956 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:24,508 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 11:52:24,573 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 11:52:25,201 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 11:52:34,402 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 11:52:34,403 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 11:52:34,522 | WARNING | tasks | Cámara no conectada, intentando reconexión...
+2025-09-22 11:52:34,526 | INFO | root | 🔬 Inference iniciado
+2025-09-22 11:52:34,527 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 11:52:37,282 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:38,292 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:39,313 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:45,904 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:55,062 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:56,257 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:57,982 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:52:59,306 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:00,369 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:02,397 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:03,780 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:05,083 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:06,284 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:07,460 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:08,782 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:10,068 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:11,187 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:12,357 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:13,620 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:15,290 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:17,277 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:18,402 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:19,536 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:20,611 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:22,651 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:24,253 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:25,572 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:26,735 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:29,835 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:34,844 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:35,892 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:36,914 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:37,969 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:41,849 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:43,101 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:51,148 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:57,598 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:53:59,641 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:00,696 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:01,742 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:02,785 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:08,929 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:10,126 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:24,611 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:41,335 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:42,412 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:43,937 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:45,080 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:46,179 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:47,718 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:48,999 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:50,092 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:51,643 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:52,807 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:53,947 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:55,034 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:56,163 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:57,281 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:58,452 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:54:59,617 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:00,869 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:02,100 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:03,483 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:04,856 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:06,245 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:07,531 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:08,626 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:09,845 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:11,565 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:24,686 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:26,014 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:29,162 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:33,669 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:56,038 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:55:59,681 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:16,815 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:32,918 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:34,127 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:35,185 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:36,218 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:37,499 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:43,507 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:45,712 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:48,442 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:49,528 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:51,362 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 11:56:52,379 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:19,652 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:24,056 | ERROR | tasks | Cámara fuera de línea
+2025-09-22 14:11:36,126 | WARNING | tasks | Cámara no conectada, intentando reconexión...
+2025-09-22 14:11:50,560 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:51,598 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:52,808 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:53,848 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:54,947 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:56,002 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:57,040 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:11:58,300 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:00,218 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:01,684 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:02,711 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:04,487 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:06,346 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:07,741 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:09,019 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:10,639 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:12,495 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:13,969 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:15,282 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:16,410 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:17,729 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:18,946 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:20,077 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:21,308 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:22,358 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:23,517 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:24,661 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:25,792 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:27,554 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:28,772 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:29,904 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:31,017 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:32,187 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:33,221 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:34,406 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:36,330 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:37,655 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:38,759 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:40,986 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:42,080 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:43,090 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:44,623 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:45,743 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:47,640 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:48,652 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:49,880 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:50,905 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:52,513 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:53,649 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:55,502 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:56,549 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:57,581 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:12:59,122 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:00,336 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:01,577 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:03,722 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:05,314 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:06,352 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:07,613 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:11,612 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:12,640 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:15,705 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:18,634 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:19,754 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:20,877 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:22,834 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:25,811 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:27,963 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:48,815 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:56,348 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:57,641 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:58,680 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:13:59,713 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:01,152 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:02,473 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:03,656 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:05,818 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:06,936 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:26,585 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:38,802 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:42,399 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:43,710 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:46,046 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:47,196 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:48,349 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:49,383 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:50,409 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:51,653 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:52,686 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:54,351 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:55,419 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:57,404 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:14:58,426 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:15:00,252 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:15:01,288 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:32:50,424 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 14:32:50,446 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 14:32:50,872 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 14:33:23,548 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 14:33:23,549 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 14:33:23,661 | WARNING | tasks | Cámara no conectada, intentando reconexión...
+2025-09-22 14:33:23,667 | INFO | root | 🔬 Inference iniciado
+2025-09-22 14:33:23,669 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 14:33:27,632 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:33:28,651 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:33:40,327 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:33:41,639 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:19,615 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:23,220 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:25,669 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:30,123 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:32,271 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:38,009 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:40,141 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:42,374 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:43,397 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:44,880 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:34:46,076 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:16,336 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:20,139 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:32,049 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:33,278 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:35,354 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:36,577 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:38,699 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:39,855 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:45,914 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:35:54,369 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:36:00,187 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:36:31,408 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:36:53,476 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:36:56,668 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:36:57,795 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:36:59,469 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:00,540 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:01,858 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:03,118 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:04,681 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:05,783 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:07,395 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:08,500 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:09,567 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:10,665 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:11,737 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:12,850 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:14,253 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:15,289 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:24,221 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:28,231 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:31,049 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:32,110 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:33,146 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:37:34,791 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:38:26,805 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:39:45,661 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:39:46,850 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:10,324 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:19,598 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:32,039 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:33,144 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:34,526 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:35,543 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:36,707 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:37,935 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:39,999 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:41,489 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:43,539 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:48,441 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:49,528 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:40:58,043 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:07,748 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:20,921 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:22,809 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:23,840 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:24,866 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:30,747 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:32,022 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:41:39,847 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:42:17,913 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:42:29,952 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:43:08,740 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:43:44,068 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:43:46,851 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:43:55,760 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:19,542 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:22,480 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:26,462 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:27,999 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:29,261 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:30,608 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:35,555 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:38,497 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:39,782 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:40,801 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:42,110 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:43,133 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:44,564 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:45,935 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:47,179 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:48,415 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:51,213 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:54,985 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:44:58,755 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:00,568 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:01,945 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:04,925 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:12,544 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:16,340 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:17,517 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:18,851 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:23,814 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:25,762 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:27,361 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:29,143 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:30,221 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:31,438 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:33,850 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:37,211 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:45:52,371 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:46:06,978 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:46:16,574 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:46:20,613 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:46:24,660 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:46:40,074 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:48:51,162 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:48:57,325 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:49:16,769 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:49:18,748 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:49:33,554 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:49:35,485 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:49:36,550 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:49:44,031 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:49:49,395 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:05,952 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:07,347 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:08,731 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:10,030 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:11,079 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:17,188 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:20,467 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:26,884 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:34,879 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:36,773 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:38,641 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:39,917 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:41,016 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:47,593 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:48,772 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:50,640 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:51,830 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:52,860 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:53,926 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:55,963 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:57,003 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:58,086 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:50:59,206 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:00,286 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:17,701 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:20,603 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:21,665 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:23,132 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:24,147 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:25,213 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:27,234 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:28,559 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:31,470 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:32,511 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:33,771 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:34,908 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:37,999 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:39,120 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:40,267 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:42,761 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:43,809 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:47,884 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:51:48,915 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:10,424 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:16,054 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:19,776 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:24,434 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:27,315 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:28,334 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:30,035 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:34,980 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:36,577 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:38,011 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:39,391 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:45,423 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:45,680 | INFO | root | 🔬 Inference finalizado
+2025-09-22 14:52:45,690 | INFO | root | 🧩 Postprocess finalizado
+2025-09-22 14:52:46,017 | INFO | root | 🛑 Pipeline detenido
+2025-09-22 14:52:46,460 | WARNING | tasks | Cola de frames llena, descartando frame.
+2025-09-22 14:52:46,461 | INFO | tasks | 🛑 CameraCapture detenido
+2025-09-22 14:53:02,379 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 14:53:02,385 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 14:53:02,735 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 14:53:17,438 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 14:53:17,443 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 14:53:17,737 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 14:56:38,276 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 14:56:38,283 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 14:56:38,605 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:23:19,956 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:23:19,963 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:23:20,348 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:23:34,131 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:23:34,136 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:23:34,404 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:24:05,091 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:24:05,114 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:24:05,623 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:24:13,755 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:24:13,756 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:24:14,740 | INFO | root | 🎥 Captura iniciada
+2025-09-22 15:24:14,741 | INFO | root | 🔬 Inference iniciado
+2025-09-22 15:24:14,743 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 15:24:39,952 | INFO | root | 👤 Persona 1 entered
+2025-09-22 15:24:56,540 | INFO | root | 👤 Persona 1 entered
+2025-09-22 15:24:58,316 | INFO | root | 👤 Persona 1 exited
+2025-09-22 15:38:38,801 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:38:38,813 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:38:39,198 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:38:43,036 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:38:43,037 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:38:44,001 | INFO | root | 🎥 Captura iniciada
+2025-09-22 15:38:44,002 | INFO | root | 🔬 Inference iniciado
+2025-09-22 15:38:44,004 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 15:41:13,297 | INFO | root | 🛑 Pipeline detenido
+2025-09-22 15:41:38,132 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:41:38,163 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:41:38,687 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:42:06,882 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:42:06,910 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:42:07,583 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:42:11,933 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:42:11,933 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:42:13,557 | INFO | root | 🎥 Captura iniciada
+2025-09-22 15:42:13,559 | INFO | root | 🔬 Inference iniciado
+2025-09-22 15:42:13,560 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 15:45:42,832 | INFO | root | 👤 Persona 174 entered
+2025-09-22 15:45:44,825 | INFO | root | 👤 Persona 174 exited
+2025-09-22 15:46:43,538 | INFO | root | 🧩 Postprocess finalizado
+2025-09-22 15:46:43,564 | INFO | root | 🔬 Inference finalizado
+2025-09-22 15:46:43,616 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:46:43,617 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 15:46:43,825 | INFO | root | 🛑 Pipeline detenido
+2025-09-22 15:46:43,985 | INFO | root | 🎥 Captura detenida
+2025-09-22 15:46:46,294 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:46:46,294 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:46:46,644 | INFO | root | 🎥 Captura iniciada
+2025-09-22 15:46:46,645 | INFO | root | 🔬 Inference iniciado
+2025-09-22 15:46:46,647 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 15:46:50,072 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:46:50,073 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 15:46:50,584 | INFO | root | 🔬 Inference finalizado
+2025-09-22 15:46:50,590 | INFO | root | 🧩 Postprocess finalizado
+2025-09-22 15:46:52,180 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:46:52,180 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:46:52,297 | INFO | root | 🎥 Captura iniciada
+2025-09-22 15:46:52,299 | INFO | root | 🔬 Inference iniciado
+2025-09-22 15:46:52,301 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 15:47:39,155 | INFO | root | 🎥 Captura detenida
+2025-09-22 15:47:39,313 | INFO | root | 🛑 Pipeline detenido
+2025-09-22 15:56:09,731 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:56:09,757 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:56:10,309 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 15:56:18,491 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:56:18,492 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:56:23,960 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:56:23,961 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 15:56:25,003 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:56:25,003 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:56:31,258 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:56:31,258 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 15:56:32,147 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:56:32,148 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:56:33,675 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:56:33,676 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 15:56:34,459 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:56:34,459 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:58:20,623 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:58:20,624 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 15:58:21,443 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 15:58:21,444 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 15:58:55,423 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 15:58:55,430 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 15:58:55,783 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 16:00:33,180 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 16:00:33,185 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 16:00:33,528 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 16:10:17,749 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 16:10:17,775 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 16:10:18,245 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 16:10:26,624 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 16:10:26,624 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 16:10:27,919 | INFO | root | 🎥 Captura iniciada
+2025-09-22 16:10:27,920 | INFO | root | 🔬 Inference iniciado
+2025-09-22 16:10:27,921 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 16:10:29,919 | INFO | root | 🚀 Aplicación iniciada
+2025-09-22 16:10:29,925 | INFO | root | ✅ Base de datos inicializada
+2025-09-22 16:10:30,349 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-22 16:11:39,862 | INFO | root | 🧩 Postprocess finalizado
+2025-09-22 16:11:39,865 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 16:11:39,866 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 16:11:40,062 | INFO | root | 🔬 Inference finalizado
+2025-09-22 16:11:40,074 | INFO | root | 🛑 Pipeline detenido
+2025-09-22 16:11:40,182 | INFO | root | 🎥 Captura detenida
+2025-09-22 16:11:42,873 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 16:11:42,874 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 16:11:43,969 | INFO | root | 🎥 Captura iniciada
+2025-09-22 16:11:43,970 | INFO | root | 🔬 Inference iniciado
+2025-09-22 16:11:43,972 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 16:11:57,148 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 16:11:57,148 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 16:11:57,544 | INFO | root | 🛑 Pipeline detenido
+2025-09-22 16:11:57,571 | INFO | root | 🎥 Captura detenida
+2025-09-22 16:11:57,654 | INFO | root | 🧩 Postprocess finalizado
+2025-09-22 16:11:57,679 | INFO | root | 🔬 Inference finalizado
+2025-09-22 16:11:58,698 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 16:11:58,698 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'ONLINE', 'details': None}
+2025-09-22 16:11:59,178 | INFO | root | 🎥 Captura iniciada
+2025-09-22 16:11:59,182 | INFO | root | 🔬 Inference iniciado
+2025-09-22 16:11:59,189 | INFO | root | 🧩 Postprocess iniciado
+2025-09-22 16:12:18,956 | ERROR | notifications | ❌ Error enviando correo: [Errno 11001] getaddrinfo failed
+2025-09-22 16:12:18,957 | WARNING | notifications | [FALLBACK LOG] {'camera_status': 'OFFLINE', 'details': None}
+2025-09-22 16:12:19,595 | INFO | root | 🔬 Inference finalizado
+2025-09-22 16:12:19,601 | INFO | root | 🧩 Postprocess finalizado

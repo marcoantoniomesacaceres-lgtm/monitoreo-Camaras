@@ -6,17 +6,31 @@ import threading
 import logging
 import numpy as np
 from logging.handlers import TimedRotatingFileHandler
-from fastapi import FastAPI, Request, Response
+from datetime import timedelta
+
+from fastapi import FastAPI, Request, Response, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import OAuth2PasswordRequestForm
+
 from ultralytics import YOLO
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 
+# Módulos propios
 from modules import storage, notifications
 from reports.daily_report import generate_daily_report
 from reports.weekly_report import generate_weekly_report
 from reports.monthly_report import generate_monthly_report
+
+# 🔐 Importamos helpers de auth.py
+from auth import (
+    authenticate_user,
+    create_access_token,
+    get_current_user,
+    require_role,
+    ACCESS_TOKEN_EXPIRE_MINUTES,
+)
 
 # -----------------------------
 # 📜 Configuración de logs
@@ -41,8 +55,28 @@ logger.info("🚀 Aplicación iniciada")
 # 🚀 FastAPI App
 # -----------------------------
 app = FastAPI()
-storage.init_db()
-logger.info("✅ Base de datos inicializada")
+
+# Configuración de plantillas y archivos estáticos
+templates = Jinja2Templates(directory="dashboard/templates")
+app.mount("/static", StaticFiles(directory="dashboard/static"), name="static")
+
+# Inicialización segura en evento startup
+@app.on_event("startup")
+async def startup_event():
+    storage.init_db()
+    logger.info("✅ Base de datos inicializada")
+
+# Cierre seguro en evento shutdown
+@app.on_event("shutdown")
+async def shutdown_event():
+    try:
+        if hasattr(storage, "close_db"):
+            storage.close_db()
+            logger.info("🛑 Conexión a base de datos cerrada correctamente")
+        else:
+            logger.warning("⚠️ storage.close_db() no está implementado")
+    except Exception as e:
+        logger.error(f"❌ Error cerrando la base de datos: {e}")
 
 # -----------------------------
 # 🌐 Estado Global
@@ -175,32 +209,57 @@ async def readiness():
 # -----------------------------
 # 📊 Métricas Prometheus
 # -----------------------------
-REQUEST_COUNT = Counter("app_requests_total", "Total de requests", ["method", "endpoint"])
-REQUEST_LATENCY = Histogram("app_request_latency_seconds", "Latencia de requests", ["endpoint"])
-CAPTURE_LATENCY = Histogram("camera_capture_latency_seconds", "Latencia de captura de frames")
-INFERENCE_LATENCY = Histogram("camera_inference_latency_seconds", "Latencia de inferencia YOLO")
-FRAMES_PROCESSED = Counter("camera_frames_processed_total", "Frames procesados por postprocess")
+REQUEST_COUNT = Counter(
+    "app_requests_total", "Total de requests", ["method", "endpoint"]
+)
+REQUEST_LATENCY = Histogram(
+    "app_request_latency_seconds", "Latencia de requests", ["endpoint"]
+)
+CAPTURE_LATENCY = Histogram(
+    "camera_capture_latency_seconds", "Latencia de captura de frames"
+)
+INFERENCE_LATENCY = Histogram(
+    "camera_inference_latency_seconds", "Latencia de inferencia YOLO"
+)
+FRAMES_PROCESSED = Counter(
+    "camera_frames_processed_total", "Frames procesados por postprocess"
+)
 
 
 @app.middleware("http")
 async def add_metrics(request: Request, call_next):
+    """
+    Middleware que mide cuántas requests llegan y cuánto tardan.
+    """
     start = time.time()
     response = await call_next(request)
     latency = time.time() - start
+
     REQUEST_COUNT.labels(method=request.method, endpoint=request.url.path).inc()
     REQUEST_LATENCY.labels(endpoint=request.url.path).observe(latency)
+
     return response
 
 
 @app.get("/metrics")
 async def metrics():
-    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+    """
+    Endpoint para que Prometheus scrapee métricas.
+    """
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST) 
 
 # -----------------------------
 # 📄 Páginas principales
 # -----------------------------
 @app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
+async def home(request: Request, user=Depends(get_current_user)):
+    """
+    Si hay JWT válido → carga index.html con el estado de cámaras.
+    Si no hay JWT → carga login.html.
+    """
+    if not user:  # Si no se pudo decodificar el token
+        return templates.TemplateResponse("login.html", {"request": request})
+
     return templates.TemplateResponse(
         "index.html",
         {
@@ -208,12 +267,13 @@ async def home(request: Request):
             "state": STATE,
             "camera_active": CAMERA_ACTIVE,
             "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
+            "user": user,
         },
     )
 
 
 @app.get("/status")
-async def get_status():
+async def get_status(user=Depends(get_current_user)):
     return {
         "state": STATE,
         "camera_active": CAMERA_ACTIVE,
@@ -222,24 +282,24 @@ async def get_status():
 
 
 @app.get("/durations")
-async def get_durations():
+async def get_durations(user=Depends(require_role("operator"))):
     return db_breaker.call(storage.get_person_durations)
 
 # -----------------------------
 # 📑 Reportes
 # -----------------------------
 @app.get("/reports/daily")
-async def daily_report():
+async def daily_report(user=Depends(require_role("admin"))):
     return FileResponse(generate_daily_report(), media_type="application/pdf", filename="daily_report.pdf")
 
 
 @app.get("/reports/weekly")
-async def weekly_report():
+async def weekly_report(user=Depends(require_role("admin"))):
     return FileResponse(generate_weekly_report(), media_type="application/pdf", filename="weekly_report.pdf")
 
 
 @app.get("/reports/monthly")
-async def monthly_report():
+async def monthly_report(user=Depends(require_role("admin"))):
     return FileResponse(generate_monthly_report(), media_type="application/pdf", filename="monthly_report.pdf")
 
 # -----------------------------
@@ -402,14 +462,14 @@ def generate_video(resize_to=(480, 360), frame_skip=2, result_queue_size=5, outp
 # 📡 Endpoints cámara
 # -----------------------------
 @app.get("/video")
-async def video_feed():
+async def video_feed(user=Depends(get_current_user)):
     if not CAMERA_ACTIVE:
         return JSONResponse({"error": "Cámara apagada"})
     return StreamingResponse(generate_video(), media_type="multipart/x-mixed-replace; boundary=frame")
 
 
 @app.post("/toggle_camera")
-async def toggle_camera():
+async def toggle_camera(user=Depends(require_role("admin"))):
     global CAMERA_ACTIVE, CAMERA_STATUS
     CAMERA_ACTIVE = not CAMERA_ACTIVE
     CAMERA_STATUS = "ONLINE" if CAMERA_ACTIVE else "OFFLINE"
@@ -418,3 +478,56 @@ async def toggle_camera():
         "camera_active": CAMERA_ACTIVE,
         "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
     }
+
+# -----------------------------
+# 🔐 Login con JWT
+# -----------------------------
+@app.post("/token")
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(form_data.username, form_data.password)
+    if not user:
+        # En vez de devolver un dict, lanzamos excepción estándar de FastAPI
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuario o contraseña incorrectos",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    # Usamos la constante de auth.py
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user["username"], "role": user["role"]},
+        expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+# -----------------------------
+# 📌 Ruta inicial (redirigir a login)
+# -----------------------------
+@app.get("/", response_class=HTMLResponse)
+async def root(request: Request, user=Depends(get_current_user)):
+    """
+    Si el usuario está autenticado, carga index.html.
+    Si no, carga login.html.
+    """
+    if not user:  # token inválido o ausente
+        return templates.TemplateResponse("login.html", {"request": request})
+    
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "state": STATE,
+            "camera_active": CAMERA_ACTIVE,
+            "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
+            "user": user,
+        },
+    )
+
+
+# -----------------------------
+# 📊 Ejemplo de ruta protegida
+# -----------------------------
+@app.get("/status")
+async def get_status(user: dict = Depends(get_current_user)):
+    return {"status": "ok", "user": user["username"], "role": user["role"]}

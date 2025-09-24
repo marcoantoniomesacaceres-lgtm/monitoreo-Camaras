@@ -2,14 +2,94 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SISMONICAMARAS Dashboard</title>
-
-  <!-- ✅ Favicon -->
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <style>
+    canvas { border: 2px solid #333; border-radius: 8px; margin-top: 10px; max-width: 100%; }
+    #status { margin: 15px; font-weight: bold; }
+    button.logout { margin-top: 15px; padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button.logout:hover { background: #a71d2a; }
+    header { text-align: center; margin: 20px 0; }
+  </style>
+</head>
+<body class="bg-light">
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Dashboard</span>
+      <button class="btn btn-outline-light" onclick="logout()">Salir</button>
+    </div>
+  </nav>
+
+  <!-- Encabezado -->
+  <header>
+    <h1>HI - TECH PEOPLE SAS</h1>
+    <h2>Sistema de Monitoreo de Cámaras</h2>
+    <h4>Bienvenido, {{ user.username }}</h4>
+  </header>
+
+  <div class="container">
+    <!-- Controles de la cámara -->
+    <section class="camera-control mb-4">
+      <h3>📷 Cámara en Tiempo Real</h3>
+      <button id="toggleCameraBtn" class="btn btn-primary" onclick="toggleCamera()">Video en vivo</button>
+      <p id="status">Cargando cámara...</p>
+      <canvas id="videoCanvas" width="640" height="480"></canvas><br>
+    </section>
+
+    <!-- Estado -->
+    <section class="status mb-4">
+      <h3>📊 Estado Actual</h3>
+      <p><strong>Personas dentro:</strong> <span id="inside">0</span></p>
+      <p><strong>Total Entradas:</strong> <span id="entered">0</span></p>
+      <p><strong>Total Salidas:</strong> <span id="exited">0</span></p>
+      <p><strong>Estado de Cámara:</strong> <span id="cameraStatus" class="status-offline">Fuera de línea</span></p>
+    </section>
+
+    <!-- Tiempos de permanencia -->
+    <section class="durations mb-4">
+      <h3>⏱️ Tiempos de Permanencia</h3>
+      <div id="durations"></div>
+    </section>
+
+    <!-- Reportes -->
+    <section class="reports mb-4">
+      <h3>📑 Reportes</h3>
+      <button class="btn btn-outline-secondary" onclick="window.location.href='/reports/daily'">Reporte Diario</button>
+      <button class="btn btn-outline-secondary" onclick="window.location.href='/reports/weekly'">Reporte Semanal</button>
+      <button class="btn btn-outline-secondary" onclick="window.location.href='/reports/monthly'">Reporte Mensual</button>
+    </section>
+  </div>
+
   <script>
-    // 👇 Mapea inglés -> español
+    // ✅ Validación de sesión protegida
+    async function fetchProtectedData() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/";
+        return;
+      }
+
+      const response = await fetch("/protected", {
+        headers: { "Authorization": `Bearer ${token}` },
+      });
+
+      if (!response.ok) {
+        localStorage.removeItem("token");
+        window.location.href = "/";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "/";
+    }
+
+    // ✅ Traducción de estados
     function traducirEstado(estado) {
       switch (estado.toLowerCase()) {
         case "online": return "En línea";
@@ -21,11 +101,7 @@
 
     function actualizarEstadoCamera(estado) {
       const cameraStatus = document.getElementById("cameraStatus");
-
-      // ✅ Texto en español
       cameraStatus.textContent = traducirEstado(estado);
-
-      // ✅ Clases (semáforo)
       cameraStatus.className = "";
       if (estado.toLowerCase() === "online") cameraStatus.classList.add("status-online");
       if (estado.toLowerCase() === "offline") cameraStatus.classList.add("status-offline");
@@ -34,25 +110,18 @@
 
     async function updateStatus() {
       try {
-        const res = await fetch("/status");
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await fetch("/status", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
         const data = await res.json();
 
-        // Actualizar contadores
         document.getElementById("inside").innerText = data.inside ?? data.state?.inside ?? 0;
         document.getElementById("entered").innerText = data.entered ?? data.state?.entered ?? 0;
         document.getElementById("exited").innerText = data.exited ?? data.state?.exited ?? 0;
-
-        // 🚦 Estado de la cámara
         actualizarEstadoCamera(data.camera_status ?? "offline");
-
-        // Encender/apagar feed de video
-        const videoFeed = document.getElementById("videoFeed");
-        if (data.camera_active && videoFeed.src === "") {
-          videoFeed.src = "/video";
-        }
-        if (!data.camera_active && videoFeed.src !== "") {
-          videoFeed.src = "";
-        }
       } catch (e) {
         console.error("❌ Error obteniendo estado:", e);
       }
@@ -60,17 +129,18 @@
 
     async function toggleCamera() {
       try {
-        const res = await fetch("/toggle_camera", { method: "POST" });
+        const token = localStorage.getItem("token");
+        const res = await fetch("/toggle_camera", {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
         const data = await res.json();
-
-        // 🚦 Estado de la cámara
         actualizarEstadoCamera(data.camera_status ?? "offline");
 
-        const videoFeed = document.getElementById("videoFeed");
         if (data.camera_active) {
-          videoFeed.src = "/video";
+          startStream();
         } else {
-          videoFeed.src = "";
+          stopStream();
         }
       } catch (e) {
         console.error("❌ Error alternando cámara:", e);
@@ -79,7 +149,10 @@
 
     async function updateDurations() {
       try {
-        const res = await fetch("/durations");
+        const token = localStorage.getItem("token");
+        const res = await fetch("/durations", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
         const data = await res.json();
         let html = "";
         for (const [id, seconds] of Object.entries(data)) {
@@ -91,75 +164,80 @@
       }
     }
 
+    // ✅ Stream seguro en canvas
+    const canvas = document.getElementById("videoCanvas");
+    const ctx = canvas?.getContext("2d");
+    let readerController = null;
+
+    async function startStream() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        document.getElementById("status").textContent = "⚠️ No hay token, inicia sesión primero.";
+        return setTimeout(() => window.location.href = "/", 1000);
+      }
+
+      try {
+        const response = await fetch("/video", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) {
+          document.getElementById("status").textContent = "❌ Error accediendo al stream: " + response.status;
+          return;
+        }
+
+        const reader = response.body.getReader();
+        readerController = reader;
+        let buffer = new Uint8Array();
+
+        function readChunk({ done, value }) {
+          if (done) return;
+          if (value) {
+            const tmp = new Uint8Array(buffer.length + value.length);
+            tmp.set(buffer, 0);
+            tmp.set(value, buffer.length);
+            buffer = tmp;
+
+            const jpegStart = buffer.indexOf(0xff);
+            const jpegEnd = buffer.lastIndexOf(0xd9);
+            if (jpegStart !== -1 && jpegEnd !== -1) {
+              const frameData = buffer.slice(jpegStart, jpegEnd + 1);
+              const blob = new Blob([frameData], { type: "image/jpeg" });
+              const img = new Image();
+              img.onload = function () {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              };
+              img.src = URL.createObjectURL(blob);
+              buffer = buffer.slice(jpegEnd + 2);
+            }
+          }
+          reader.read().then(readChunk);
+        }
+
+        reader.read().then(readChunk);
+        document.getElementById("status").textContent = "✅ Cámara en línea";
+      } catch (err) {
+        console.error("Stream error:", err);
+        document.getElementById("status").textContent = "❌ Error conectando al stream";
+      }
+    }
+
+    function stopStream() {
+      if (readerController) {
+        readerController.cancel();
+        readerController = null;
+        document.getElementById("status").textContent = "⏹️ Stream detenido";
+      }
+    }
+
+    // 🚀 Inicialización
+    fetchProtectedData();
     setInterval(updateStatus, 2000);
     setInterval(updateDurations, 5000);
-    window.onload = function() {
+    window.onload = function () {
       updateStatus();
       updateDurations();
-    }
+    };
   </script>
-</head>
-<body>
-  <!-- Encabezado -->
-  <header>
-    <h1>HI - TECH PEOPLE SAS</h1>
-    <h2>Sistema de Monitoreo de Cámaras</h2>
-  </header>
-
-    <!-- Controles de la cámara -->
-  <section class="camera-control">
-    <h3>📷 Cámara en Tiempo Real</h3>
-    <button id="toggleCameraBtn" onclick="toggleCamera()">
-      <svg xmlns="http://www.w3.org/2000/svg" 
-          width="16" height="16" 
-          fill="currentColor" 
-          viewBox="0 0 16 16"
-          style="vertical-align: middle; margin-right: 5px;">
-        <path d="M10.5 3a.5.5 0 0 1 .5.5v1.528l2.528-1.264A.5.5 0 0 1 14 4.236v7.528a.5.5 0 0 1-.472.472L11 11.472V13.5a.5.5 0 0 1-.5.5h-9A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h9z"/>
-      </svg>
-      Video en vivo
-    </button>
-      <div>
-        <img id="videoFeed" 
-            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAA
-            BACAIAAAAlC+aJAAABXUlEQVR4nO2YwQ3DIAxE3T3//1tM0oTIYZ
-            WvJHwcQCLbix9q3h3IV7EVBfA8CqTz6SwmA6BzQSTJbOnF0vH9n
-            0RyixK0cWRk2fQZpYVhixpiE3npZJMYu22Mj4kZP4k8m+LBo+O5
-            3+9Zx7gWjDBcY02tS6FeRt6Xg7XhMduObFMo7dnKiU9C9tHcc9S
-            4fcODP7G6HgyWtdpBz6X3t7zXlYQH+Os9wcYQeAjIUZljE0M8OE
-            S5oWblQioZzVNjAtKvNlDuxsU6CBoYhSwQLv8wP0+HFAaF6a6f9
-            i0cXe/A4QWcA2XzIh6QF/Jt+4B65HLE0E8BWuCtPiOj0F+mYQuw
-            BC7Qkh8AzM3Q2E4AAAAASUVORK5CYII=" 
-            alt="Transmisión de vídeo"/>
-      </div>
-  </section>
-
-  <!-- Estado -->
-  <section class="status">
-    <h3>📊 Estado Actual</h3>
-    <p><strong>Personas dentro:</strong> <span id="inside">0</span></p>
-    <p><strong>Total Entradas:</strong> <span id="entered">0</span></p>
-    <p><strong>Total Salidas:</strong> <span id="exited">0</span></p>
-
-    <!-- 🚦 Estado de la cámara con colores -->
-    <p>
-      <strong>Estado de Cámara:</strong>
-      <span id="cameraStatus" class="status-offline">Fuera de línea</span>
-    </p>
-  </section>
-
-  <!-- Tiempos de permanencia -->
-  <section class="durations">
-    <h3>⏱️ Tiempos de Permanencia</h3>
-    <div id="durations"></div>
-  </section>
-
-  <!-- Reportes -->
-  <section class="reports">
-    <h3>📑 Reportes</h3>
-    <button onclick="window.location.href='/reports/daily'">Reporte Diario</button>
-    <button onclick="window.location.href='/reports/weekly'">Reporte Semanal</button>
-    <button onclick="window.location.href='/reports/monthly'">Reporte Mensual</button>
-  </section>
 </body>
 </html>
