@@ -4,6 +4,7 @@ import time
 import queue
 import threading
 import logging
+import jwt
 import numpy as np
 from logging.handlers import TimedRotatingFileHandler
 from datetime import timedelta
@@ -17,12 +18,6 @@ from fastapi.security import OAuth2PasswordRequestForm
 from ultralytics import YOLO
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 
-# Módulos propios
-from modules import storage, notifications
-from reports.daily_report import generate_daily_report
-from reports.weekly_report import generate_weekly_report
-from reports.monthly_report import generate_monthly_report
-
 # 🔐 Importamos helpers de auth.py
 from auth import (
     authenticate_user,
@@ -31,6 +26,12 @@ from auth import (
     require_role,
     ACCESS_TOKEN_EXPIRE_MINUTES,
 )
+
+# 📦 Módulos propios
+from modules import storage, notifications
+from reports.daily_report import generate_daily_report
+from reports.weekly_report import generate_weekly_report
+from reports.monthly_report import generate_monthly_report
 
 # -----------------------------
 # 📜 Configuración de logs
@@ -251,33 +252,43 @@ async def metrics():
 # -----------------------------
 # 📄 Páginas principales
 # -----------------------------
+# 📌 Ruta inicial (redirige según login)
 @app.get("/", response_class=HTMLResponse)
-async def home(request: Request, user=Depends(get_current_user)):
+async def root(request: Request, user=Depends(get_current_user)):
     """
-    Si hay JWT válido → carga index.html con el estado de cámaras.
-    Si no hay JWT → carga login.html.
+    Si el usuario está autenticado, carga index.html.
+    Si no, carga login.html.
     """
-    if not user:  # Si no se pudo decodificar el token
+    if not user:  # token inválido o ausente
         return templates.TemplateResponse("login.html", {"request": request})
 
     return templates.TemplateResponse(
         "index.html",
         {
             "request": request,
-            "state": STATE,
-            "camera_active": CAMERA_ACTIVE,
-            "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
+            "state": app.state.state,
+            "camera_active": app.state.camera_active,
+            "camera_status": STATUS_TRANSLATIONS.get(
+                getattr(app.state, "camera_status", "Desconocido").split()[0],
+                getattr(app.state, "camera_status", "Desconocido"),
+            ),
             "user": user,
         },
     )
 
 
 @app.get("/status")
-async def get_status(user=Depends(get_current_user)):
+async def get_status(user: dict = Depends(get_current_user)):
     return {
+        "status": "ok",
+        "user": user["username"],
+        "role": user["role"],
         "state": STATE,
         "camera_active": CAMERA_ACTIVE,
-        "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
+        "camera_status": STATUS_TRANSLATIONS.get(
+            CAMERA_STATUS.split()[0],
+            CAMERA_STATUS
+        ),
     }
 
 
@@ -482,52 +493,41 @@ async def toggle_camera(user=Depends(require_role("admin"))):
 # -----------------------------
 # 🔐 Login con JWT
 # -----------------------------
-@app.post("/token")
+@app.post("/login")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
-        # En vez de devolver un dict, lanzamos excepción estándar de FastAPI
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Usuario o contraseña incorrectos",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
-    # Usamos la constante de auth.py
+
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user["username"], "role": user["role"]},
-        expires_delta=access_token_expires
+        expires_delta=access_token_expires,
     )
-    return {"access_token": access_token, "token_type": "bearer"}
 
-# -----------------------------
-# 📌 Ruta inicial (redirigir a login)
-# -----------------------------
-@app.get("/", response_class=HTMLResponse)
-async def root(request: Request, user=Depends(get_current_user)):
-    """
-    Si el usuario está autenticado, carga index.html.
-    Si no, carga login.html.
-    """
-    if not user:  # token inválido o ausente
-        return templates.TemplateResponse("login.html", {"request": request})
-    
-    return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
-            "state": STATE,
-            "camera_active": CAMERA_ACTIVE,
-            "camera_status": STATUS_TRANSLATIONS.get(CAMERA_STATUS.split()[0], CAMERA_STATUS),
-            "user": user,
+    # Creamos la respuesta en JSON
+    response = JSONResponse(content={
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "username": user["username"],
+            "role": user["role"],
         },
+    })
+
+    # Guardamos el token también en una cookie segura
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,       # ❌ JS no puede leer la cookie → más seguro
+        secure=True,         # ✅ solo sobre HTTPS (útil en prod)
+        samesite="Lax",      # evita CSRF básicos
+        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        expires=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
 
-
-# -----------------------------
-# 📊 Ejemplo de ruta protegida
-# -----------------------------
-@app.get("/status")
-async def get_status(user: dict = Depends(get_current_user)):
-    return {"status": "ok", "user": user["username"], "role": user["role"]}
+    return response

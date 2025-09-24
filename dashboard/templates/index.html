@@ -29,7 +29,7 @@
   <header>
     <h1>HI - TECH PEOPLE SAS</h1>
     <h2>Sistema de Monitoreo de Cámaras</h2>
-    <h4>Bienvenido, {{ user.username }}</h4>
+    <h4>Bienvenido, <span id="username">Usuario</span></h4>
   </header>
 
   <div class="container">
@@ -66,7 +66,6 @@
   </div>
 
   <script>
-    // ✅ Validación de sesión protegida
     async function fetchProtectedData() {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -89,7 +88,6 @@
       window.location.href = "/";
     }
 
-    // ✅ Traducción de estados
     function traducirEstado(estado) {
       switch (estado.toLowerCase()) {
         case "online": return "En línea";
@@ -118,9 +116,11 @@
         });
         const data = await res.json();
 
-        document.getElementById("inside").innerText = data.inside ?? data.state?.inside ?? 0;
-        document.getElementById("entered").innerText = data.entered ?? data.state?.entered ?? 0;
-        document.getElementById("exited").innerText = data.exited ?? data.state?.exited ?? 0;
+        // 🔑 Actualización de la UI con /status unificado
+        document.getElementById("username").innerText = data.user ?? "Invitado";
+        document.getElementById("inside").innerText = data.inside ?? 0;
+        document.getElementById("entered").innerText = data.entered ?? 0;
+        document.getElementById("exited").innerText = data.exited ?? 0;
         actualizarEstadoCamera(data.camera_status ?? "offline");
       } catch (e) {
         console.error("❌ Error obteniendo estado:", e);
@@ -164,7 +164,6 @@
       }
     }
 
-    // ✅ Stream seguro en canvas
     const canvas = document.getElementById("videoCanvas");
     const ctx = canvas?.getContext("2d");
     let readerController = null;
@@ -230,7 +229,6 @@
       }
     }
 
-    // 🚀 Inicialización
     fetchProtectedData();
     setInterval(updateStatus, 2000);
     setInterval(updateDurations, 5000);
