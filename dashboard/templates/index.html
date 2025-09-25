@@ -69,7 +69,7 @@
     async function fetchProtectedData() {
       const token = localStorage.getItem("token");
       if (!token) {
-        window.location.href = "/";
+        window.location.href = "/dashboard";
         return;
       }
 
@@ -79,13 +79,13 @@
 
       if (!response.ok) {
         localStorage.removeItem("token");
-        window.location.href = "/";
+        window.location.href = "/dashboard";
       }
     }
 
     function logout() {
       localStorage.removeItem("token");
-      window.location.href = "/";
+      window.location.href = "/dashboard";
     }
 
     function traducirEstado(estado) {
@@ -116,7 +116,6 @@
         });
         const data = await res.json();
 
-        // 🔑 Actualización de la UI con /status unificado
         document.getElementById("username").innerText = data.user ?? "Invitado";
         document.getElementById("inside").innerText = data.inside ?? 0;
         document.getElementById("entered").innerText = data.entered ?? 0;
@@ -172,7 +171,7 @@
       const token = localStorage.getItem("token");
       if (!token) {
         document.getElementById("status").textContent = "⚠️ No hay token, inicia sesión primero.";
-        return setTimeout(() => window.location.href = "/", 1000);
+        return setTimeout(() => window.location.href = "/dashboard", 1000);
       }
 
       try {

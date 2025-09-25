@@ -36,27 +36,16 @@
           body: new URLSearchParams({ username, password }),
         });
 
-        if (response.redirected) {
-          // ✅ El backend redirige a "/" si el login es exitoso
-          // Pero también extraemos el token del Set-Cookie si viene
-          const token = await response.text(); // por si backend manda JSON
-          try {
-            const data = JSON.parse(token);
-            if (data.access_token) {
-              localStorage.setItem("token", data.access_token);
-            }
-          } catch (_) {}
-          window.location.href = "/";
-          return;
-        }
-
         const data = await response.json();
         if (response.ok && data.access_token) {
+          // ✅ Guardamos el token en localStorage
           localStorage.setItem("token", data.access_token);
+
+          // Mensaje de éxito y redirección al dashboard
           document.getElementById("message").classList.remove("text-danger");
           document.getElementById("message").classList.add("text-success");
           document.getElementById("message").textContent = "¡Login exitoso!";
-          setTimeout(() => window.location.href = "/", 800);
+          setTimeout(() => window.location.href = "/dashboard", 800);
         } else {
           document.getElementById("message").textContent = data.detail || "Error al iniciar sesión";
         }
