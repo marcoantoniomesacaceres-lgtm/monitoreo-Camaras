@@ -12,9 +12,9 @@ DB_DIR = "data"
 os.makedirs(DB_DIR, exist_ok=True)
 DB_PATH = os.path.join(DB_DIR, "database.db")
 
-# 🔹 Conexión global + Lock
+# 🔹 Conexión global + RLock hola
 _conn = None
-_db_lock = threading.Lock()
+_db_lock = threading.RLock()
 
 # -----------------------------
 # 🔗 Conexión
@@ -56,14 +56,24 @@ def ensure_schema():
     Asegura que el esquema mínimo esté correcto.
     """
     with _db_lock:
+        logger.info("[ensure_schema] Lock adquirido, obteniendo conexión")
         conn = get_connection()
+        logger.info(f"[ensure_schema] Conexión obtenida: {conn}")
+        logger.info("[ensure_schema] Creando cursor")
         cur = conn.cursor()
+        logger.info("[ensure_schema] Cursor creado")
         try:
+            logger.info("[ensure_schema] Intentando ALTER TABLE para person_id")
             cur.execute("ALTER TABLE events ADD COLUMN person_id INTEGER")
+            logger.info("[ensure_schema] ALTER TABLE ejecutado")
         except sqlite3.OperationalError:
-            # Ya existe la columna o la tabla aún no está creada → ignorar
+            logger.info("[ensure_schema] La columna person_id ya existe o la tabla no está creada")
             pass
+        except Exception as e:
+            logger.error(f"[ensure_schema] Error inesperado en ALTER TABLE: {e}", exc_info=True)
+        logger.info("[ensure_schema] Commit final antes de conn.commit()")
         conn.commit()
+        logger.info("[ensure_schema] Commit realizado")
 
 
 def init_db():
@@ -72,11 +82,14 @@ def init_db():
     No bloquea FastAPI en caso de error.
     """
     try:
+        logger.info("[init_db] Adquiriendo lock de base de datos")
         with _db_lock:
+            logger.info("[init_db] Lock adquirido, obteniendo conexión")
             conn = get_connection()
+            logger.info("[init_db] Conexión obtenida, creando cursor")
             cur = conn.cursor()
 
-            # Tabla de eventos
+            logger.info("[init_db] Creando tabla events si no existe")
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS events (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -86,7 +99,7 @@ def init_db():
                 )
             """)
 
-            # Tabla de sesiones activas
+            logger.info("[init_db] Creando tabla active_sessions si no existe")
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS active_sessions (
                     person_id INTEGER PRIMARY KEY,
@@ -94,9 +107,10 @@ def init_db():
                 )
             """)
 
+            logger.info("[init_db] Commit de creación de tablas")
             conn.commit()
 
-            # Garantizar columnas mínimas
+            logger.info("[init_db] Llamando a ensure_schema()")
             ensure_schema()
 
         logger.info("✅ Base de datos lista en %s", DB_PATH)

@@ -21,7 +21,44 @@ from auth import create_access_token, get_current_user
 from fastapi.security import OAuth2PasswordRequestForm
 
 from ultralytics import YOLO
+
+
+# --- Prometheus metrics initialization (safe for reload) ---
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+import prometheus_client
+def _init_prometheus_metrics():
+    registry = prometheus_client.REGISTRY
+    # Check if already registered
+    metric_names = set(m.name for m in registry.collect())
+    metrics = {}
+    if "app_requests_total" not in metric_names:
+        metrics["REQUEST_COUNT"] = Counter("app_requests_total", "Total de requests", ["method", "endpoint"])
+    else:
+        metrics["REQUEST_COUNT"] = prometheus_client.REGISTRY._names_to_collectors["app_requests_total"]
+    if "app_request_latency_seconds" not in metric_names:
+        metrics["REQUEST_LATENCY"] = Histogram("app_request_latency_seconds", "Latencia de requests", ["endpoint"])
+    else:
+        metrics["REQUEST_LATENCY"] = prometheus_client.REGISTRY._names_to_collectors["app_request_latency_seconds"]
+    if "camera_capture_latency_seconds" not in metric_names:
+        metrics["CAPTURE_LATENCY"] = Histogram("camera_capture_latency_seconds", "Latencia de captura de frames")
+    else:
+        metrics["CAPTURE_LATENCY"] = prometheus_client.REGISTRY._names_to_collectors["camera_capture_latency_seconds"]
+    if "camera_inference_latency_seconds" not in metric_names:
+        metrics["INFERENCE_LATENCY"] = Histogram("camera_inference_latency_seconds", "Latencia de inferencia YOLO")
+    else:
+        metrics["INFERENCE_LATENCY"] = prometheus_client.REGISTRY._names_to_collectors["camera_inference_latency_seconds"]
+    if "camera_frames_processed_total" not in metric_names:
+        metrics["FRAMES_PROCESSED"] = Counter("camera_frames_processed_total", "Frames procesados por postprocess")
+    else:
+        metrics["FRAMES_PROCESSED"] = prometheus_client.REGISTRY._names_to_collectors["camera_frames_processed_total"]
+    return metrics
+
+_metrics = _init_prometheus_metrics()
+REQUEST_COUNT = _metrics["REQUEST_COUNT"]
+REQUEST_LATENCY = _metrics["REQUEST_LATENCY"]
+CAPTURE_LATENCY = _metrics["CAPTURE_LATENCY"]
+INFERENCE_LATENCY = _metrics["INFERENCE_LATENCY"]
+FRAMES_PROCESSED = _metrics["FRAMES_PROCESSED"]
 
 # 🔐 Importamos helpers de auth.py (asegúrate que existan y funcionen)
 from auth import (
@@ -90,7 +127,9 @@ STATUS_TRANSLATIONS = {
 # -----------------------------
 @app.on_event("startup")
 async def startup_event():
+    logger.info("Iniciando storage.init_db()")
     storage.init_db()
+    logger.info("storage.init_db() completado")
     # Inicializar estado en app.state para accesibilidad desde templates
     app.state.state = STATE
     app.state.camera_active = CAMERA_ACTIVE
@@ -223,16 +262,10 @@ async def readiness():
         logger.error(f"❌ Readiness fail: {e}")
         return JSONResponse(status_code=500, content={"status": "not ready", "error": str(e)})
 
+
 # -----------------------------
 # 📊 Métricas Prometheus
 # -----------------------------
-REQUEST_COUNT = Counter("app_requests_total", "Total de requests", ["method", "endpoint"])
-REQUEST_LATENCY = Histogram("app_request_latency_seconds", "Latencia de requests", ["endpoint"])
-CAPTURE_LATENCY = Histogram("camera_capture_latency_seconds", "Latencia de captura de frames")
-INFERENCE_LATENCY = Histogram("camera_inference_latency_seconds", "Latencia de inferencia YOLO")
-FRAMES_PROCESSED = Counter("camera_frames_processed_total", "Frames procesados por postprocess")
-
-
 @app.middleware("http")
 async def add_metrics(request: Request, call_next):
     start = time.time()
@@ -240,8 +273,10 @@ async def add_metrics(request: Request, call_next):
     latency = time.time() - start
 
     try:
-        REQUEST_COUNT.labels(method=request.method, endpoint=request.url.path).inc()
-        REQUEST_LATENCY.labels(endpoint=request.url.path).observe(latency)
+        if REQUEST_COUNT:
+            REQUEST_COUNT.labels(method=request.method, endpoint=request.url.path).inc()
+        if REQUEST_LATENCY:
+            REQUEST_LATENCY.labels(endpoint=request.url.path).observe(latency)
     except Exception:
         # evitar que el middleware rompa por cualquier error de Prometheus
         pass
@@ -593,3 +628,7 @@ async def report_monthly(user=Depends(require_role("admin"))):
 # 🔚 Finalización
 # -----------------------------
 logger.info("✅ main.py cargado y rutas inicializadas")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
