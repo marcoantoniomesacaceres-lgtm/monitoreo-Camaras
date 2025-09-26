@@ -300,8 +300,8 @@ async def root(request: Request):
 
 # /dashboard -> sitio protegido que sí valida token y muestra index.html
 @app.get("/dashboard", response_class=HTMLResponse)
-async def dashboard(request: Request, user=Depends(get_current_user)):
-    # Si get_current_user lanza HTTPException, FastAPI devolverá 401 automáticamente.
+async def dashboard(request: Request):
+    # Ruta pública temporalmente, sin autenticación
     return templates.TemplateResponse(
         "index.html",
         {
@@ -309,7 +309,7 @@ async def dashboard(request: Request, user=Depends(get_current_user)):
             "state": app.state.state,
             "camera_active": app.state.camera_active,
             "camera_status": STATUS_TRANSLATIONS.get(app.state.camera_status.split()[0], app.state.camera_status),
-            "user": user,
+            "user": None,
         },
     )
 
@@ -600,6 +600,7 @@ async def login(request: Request):
         samesite="Lax",
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         expires=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        path="/"
     )
     return response
 

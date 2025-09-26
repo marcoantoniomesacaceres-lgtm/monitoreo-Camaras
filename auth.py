@@ -33,7 +33,7 @@ def authenticate_user(username: str, password: str):
     cursor = conn.cursor()
     cursor.execute("SELECT username, full_name, hashed_password, role FROM users WHERE username = ?", (username,))
     row = cursor.fetchone()
-    conn.close()
+    # Do not close the global connection here
 
     if not row:
         return None
@@ -56,13 +56,29 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+from fastapi import Request
+from fastapi import Cookie
+from typing import Union
+
+def get_token_from_request(request: Request, token: Union[str, None] = Depends(oauth2_scheme)):
+    # Si el token viene del header Authorization, úsalo
+    if token:
+        return token
+    # Si no, intenta obtenerlo de la cookie
+    cookie_token = request.cookies.get("access_token")
+    if cookie_token:
+        return cookie_token
+    return None
+
+def get_current_user(request: Request, token: Union[str, None] = Depends(get_token_from_request)):
     """Decodifica el JWT y obtiene el usuario actual de SQLite."""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Credenciales inválidas o token caducado",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    if not token:
+        raise credentials_exception
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
@@ -76,7 +92,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     cursor = conn.cursor()
     cursor.execute("SELECT username, full_name, hashed_password, role FROM users WHERE username = ?", (username,))
     row = cursor.fetchone()
-    conn.close()
+    # Do not close the global connection here
 
     if not row:
         raise credentials_exception

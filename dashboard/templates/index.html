@@ -69,23 +69,26 @@
     async function fetchProtectedData() {
       const token = localStorage.getItem("token");
       if (!token) {
-        window.location.href = "/dashboard";
+        window.location.href = "/login";
         return;
       }
 
-      const response = await fetch("/protected", {
+      // Puedes hacer una petición protegida para validar el token si lo deseas
+      // Si falla, limpiar token y redirigir a login
+      const response = await fetch("/status", {
         headers: { "Authorization": `Bearer ${token}` },
       });
-
       if (!response.ok) {
         localStorage.removeItem("token");
-        window.location.href = "/dashboard";
+        window.location.href = "/login";
       }
     }
 
     function logout() {
       localStorage.removeItem("token");
-      window.location.href = "/dashboard";
+      // Borrar cookie access_token (expirándola)
+      document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.href = "/login";
     }
 
     function traducirEstado(estado) {
@@ -116,7 +119,7 @@
         });
         const data = await res.json();
 
-        document.getElementById("username").innerText = data.user ?? "Invitado";
+  document.getElementById("username").innerText = data.user || data.username || "Invitado";
         document.getElementById("inside").innerText = data.inside ?? 0;
         document.getElementById("entered").innerText = data.entered ?? 0;
         document.getElementById("exited").innerText = data.exited ?? 0;
