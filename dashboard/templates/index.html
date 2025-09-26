@@ -63,6 +63,20 @@
       <button class="btn btn-outline-secondary" onclick="window.location.href='/reports/weekly'">Reporte Semanal</button>
       <button class="btn btn-outline-secondary" onclick="window.location.href='/reports/monthly'">Reporte Mensual</button>
     </section>
+
+    <!-- Configuración de cámara IP -->
+    <section class="camera-config mb-4">
+      <h3>🔧 Configurar URL de Cámara IP</h3>
+      <form id="cameraUrlForm" class="row g-2 align-items-center">
+        <div class="col-auto">
+          <input type="text" class="form-control" id="cameraUrlInput" placeholder="rtsp://usuario:pass@ip:puerto/ o 0 para webcam" style="width: 350px;">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+        <div class="col-auto" id="cameraUrlMsg"></div>
+      </form>
+    </section>
   </div>
 
   <script>
@@ -230,6 +244,34 @@
         document.getElementById("status").textContent = "⏹️ Stream detenido";
       }
     }
+
+    // Cargar la URL actual de la cámara al iniciar
+  fetch('/camera_url')
+    .then(res => res.text())
+    .then(url => {
+      document.getElementById('cameraUrlInput').value = url;
+    });
+
+  document.getElementById('cameraUrlForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const url = document.getElementById('cameraUrlInput').value;
+    const msg = document.getElementById('cameraUrlMsg');
+    msg.textContent = 'Guardando...';
+    try {
+      const res = await fetch('/camera_url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ url })
+      });
+      if (res.ok) {
+        msg.textContent = '✅ Guardado';
+      } else {
+        msg.textContent = '❌ Error al guardar';
+      }
+    } catch {
+      msg.textContent = '❌ Error de red';
+    }
+  });
 
     fetchProtectedData();
     setInterval(updateStatus, 2000);
