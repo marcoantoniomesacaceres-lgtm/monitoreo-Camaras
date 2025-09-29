@@ -390,3 +390,18 @@ async def login_page(request: Request):
 @app.get("/status")
 async def get_status():
     return {"status": "ok"}
+
+@app.get("/reports/daily")
+async def daily_report():
+    path = generate_daily_report()
+    return FileResponse(path, media_type="application/pdf", filename="daily_report.pdf")
+
+@app.get("/reports/weekly")
+async def weekly_report():
+    path = generate_weekly_report()
+    return FileResponse(path, media_type="application/pdf", filename="weekly_report.pdf")
+
+@app.get("/reports/monthly")
+async def monthly_report():
+    path = generate_monthly_report()
+    return FileResponse(path, media_type="application/pdf", filename="monthly_report.pdf")
