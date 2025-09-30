@@ -336,3 +336,41 @@
 2025-09-30 11:28:36,932 | INFO | root | 📡 Endpoint /toggle_camera llamado desde 127.0.0.1
 2025-09-30 11:28:36,933 | INFO | root | ▶️ Iniciando captura manualmente
 2025-09-30 11:29:09,556 | ERROR | root | ❌ Error al abrir la cámara. Verifica URL/credenciales
+2025-09-30 11:33:58,516 | INFO | root | 🚀 Aplicación iniciada
+2025-09-30 11:33:58,890 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-30 11:33:58,902 | INFO | root | Iniciando storage.init_db()
+2025-09-30 11:33:58,903 | INFO | modules.storage | [init_db] Adquiriendo lock de base de datos
+2025-09-30 11:33:58,903 | INFO | modules.storage | [init_db] Lock adquirido, obteniendo conexión
+2025-09-30 11:33:58,904 | INFO | modules.storage | [init_db] Conexión obtenida, creando cursor
+2025-09-30 11:33:58,904 | INFO | modules.storage | [init_db] Creando tabla events si no existe
+2025-09-30 11:33:58,905 | INFO | modules.storage | [init_db] Creando tabla active_sessions si no existe
+2025-09-30 11:33:58,906 | INFO | modules.storage | [init_db] Commit de creación de tablas
+2025-09-30 11:33:58,906 | INFO | modules.storage | [init_db] Llamando a ensure_schema()
+2025-09-30 11:33:58,907 | INFO | modules.storage | [ensure_schema] Lock adquirido, obteniendo conexión
+2025-09-30 11:33:58,907 | INFO | modules.storage | [ensure_schema] Conexión obtenida: <sqlite3.Connection object at 0x00000206A91F88B0>
+2025-09-30 11:33:58,907 | INFO | modules.storage | [ensure_schema] Creando cursor
+2025-09-30 11:33:58,907 | INFO | modules.storage | [ensure_schema] Cursor creado
+2025-09-30 11:33:58,907 | INFO | modules.storage | [ensure_schema] Intentando ALTER TABLE para person_id
+2025-09-30 11:33:58,908 | INFO | modules.storage | [ensure_schema] La columna person_id ya existe o la tabla no está creada
+2025-09-30 11:33:58,908 | INFO | modules.storage | [ensure_schema] Commit final antes de conn.commit()
+2025-09-30 11:33:58,908 | INFO | modules.storage | [ensure_schema] Commit realizado
+2025-09-30 11:33:58,908 | INFO | modules.storage | ✅ Base de datos lista en data\database.db
+2025-09-30 11:33:58,909 | INFO | root | storage.init_db() completado
+2025-09-30 11:33:58,910 | INFO | root | ✅ Base de datos inicializada
+2025-09-30 11:34:56,837 | INFO | root | 🎥 Captura iniciada
+2025-09-30 11:35:12,037 | INFO | root | 📡 Endpoint /toggle_camera llamado desde 127.0.0.1
+2025-09-30 11:35:12,037 | INFO | root | ▶️ Iniciando captura manualmente
+2025-09-30 11:35:45,005 | ERROR | root | ❌ Error al abrir la cámara. Verifica URL/credenciales
+2025-09-30 11:36:53,612 | INFO | root | 🎥 Captura detenida
+2025-09-30 11:36:56,658 | INFO | root | 🎥 Captura iniciada
+2025-09-30 11:37:02,033 | INFO | root | 📡 Endpoint /toggle_camera llamado desde 127.0.0.1
+2025-09-30 11:37:02,033 | INFO | root | ▶️ Iniciando captura manualmente
+2025-09-30 11:37:34,568 | ERROR | root | ❌ Error al abrir la cámara. Verifica URL/credenciales
+2025-09-30 11:37:34,694 | INFO | root | 📡 Endpoint /toggle_camera llamado desde 127.0.0.1
+2025-09-30 11:37:34,695 | INFO | root | ▶️ Iniciando captura manualmente
+2025-09-30 11:38:07,402 | ERROR | root | ❌ Error al abrir la cámara. Verifica URL/credenciales
+2025-09-30 11:38:07,404 | INFO | root | 📡 Endpoint /toggle_camera llamado desde 127.0.0.1
+2025-09-30 11:38:07,405 | INFO | root | ▶️ Iniciando captura manualmente
+2025-09-30 11:38:40,262 | ERROR | root | ❌ Error al abrir la cámara. Verifica URL/credenciales
+2025-09-30 11:38:40,272 | INFO | root | 📡 Endpoint /toggle_camera llamado desde 127.0.0.1
+2025-09-30 11:38:40,273 | INFO | root | ▶️ Iniciando captura manualmente
