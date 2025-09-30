@@ -1,18 +1,126 @@
+
+# --- Standard Library Imports ---
 import os
 import cv2
 import time
 import queue
 import threading
 import logging
-from jose import jwt 
 import numpy as np
 from logging.handlers import TimedRotatingFileHandler
 from datetime import timedelta
 
-from fastapi import FastAPI, Request, Response, Depends, HTTPException, status
-from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
+# --- FastAPI & Third Party Imports ---
+from fastapi import FastAPI, Request, Response, Depends, HTTPException, status, Body, Form, Query
+from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse, PlainTextResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import OAuth2PasswordRequestForm
+from ultralytics import YOLO
+
+# --- Project Imports ---
+from auth import create_access_token, get_current_user, authenticate_user, require_role, ACCESS_TOKEN_EXPIRE_MINUTES
+from utils.camera_config import load_camera_url, save_camera_url
+from modules import storage, notifications
+from reports.daily_report import generate_daily_report
+from reports.weekly_report import generate_weekly_report
+from reports.monthly_report import generate_monthly_report
+
+# --- Prometheus ---
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+import prometheus_client
+
+app = FastAPI()
+
+# --- ENDPOINTS DE CONTROL DE CÁMARA ---
+@app.api_route("/toggle_camera", methods=["GET", "POST"])
+async def toggle_camera(
+    request: Request,
+    active: bool = Query(None),
+    body: dict = Body(None)
+):
+    global CAMERA_ACTIVE, CAMERA_STATUS, capture_thread, frame_queue
+
+    # Cargar la URL configurada de la cámara
+    camera_url = load_camera_url()
+    src = 0 if camera_url.strip() == "0" else camera_url.strip()
+
+    # 1️⃣ Detectar si viene por GET (query param) o POST (body JSON/form)
+    if request.method == "GET":
+        if active is None:
+            return {
+                "success": False,
+                "message": "Falta parámetro 'active' en query",
+                "status": CAMERA_STATUS,
+                "camera_url": camera_url
+            }
+    else:  # POST
+        if body and "active" in body:
+            active = body["active"]
+        else:
+            return {
+                "success": False,
+                "message": "Falta 'active' en el body",
+                "status": CAMERA_STATUS,
+                "camera_url": camera_url
+            }
+
+    # 2️⃣ Activar cámara
+    if active:
+        if not CAMERA_ACTIVE:
+            test_cap = cv2.VideoCapture(src)
+            time.sleep(1)
+            if not test_cap.isOpened():
+                CAMERA_STATUS = "OFFLINE"
+                app.state.camera_status = CAMERA_STATUS
+                return {
+                    "success": False,
+                    "message": "No se pudo activar la cámara.",
+                    "status": CAMERA_STATUS,
+                    "camera_url": camera_url
+                }
+            test_cap.release()
+            capture_thread = CameraCapture(src, frame_queue, max_fps=15)
+            capture_thread.start()
+            CAMERA_ACTIVE = True
+            CAMERA_STATUS = "ONLINE"
+            app.state.camera_active = CAMERA_ACTIVE
+            app.state.camera_status = CAMERA_STATUS
+            return {
+                "success": True,
+                "message": "Cámara activada.",
+                "status": CAMERA_STATUS,
+                "camera_url": camera_url
+            }
+        else:
+            return {
+                "success": True,
+                "message": "La cámara ya está activa.",
+                "status": CAMERA_STATUS,
+                "camera_url": camera_url
+            }
+
+    # 3️⃣ Desactivar cámara
+    else:
+        if CAMERA_ACTIVE and "capture_thread" in globals() and capture_thread is not None:
+            capture_thread.stop()
+            CAMERA_ACTIVE = False
+            CAMERA_STATUS = "OFFLINE"
+            app.state.camera_active = CAMERA_ACTIVE
+            app.state.camera_status = CAMERA_STATUS
+            return {
+                "success": True,
+                "message": "Cámara desactivada.",
+                "status": CAMERA_STATUS,
+                "camera_url": camera_url
+            }
+        else:
+            return {
+                "success": True,
+                "message": "La cámara ya está desactivada.",
+                "status": CAMERA_STATUS,
+                "camera_url": camera_url
+            }
 from fastapi import FastAPI, Depends, HTTPException, status
 from auth import create_access_token, get_current_user
 
@@ -305,6 +413,42 @@ async def set_camera_url(url: str = Form(...)):
             time.sleep(0.2)
         camera_url = load_camera_url()
         src = 0 if camera_url.strip() == '0' else camera_url.strip()
+        # Probar si la cámara se puede abrir antes de lanzar el hilo
+        test_cap = cv2.VideoCapture(src)
+        time.sleep(1)  # Espera breve para que OpenCV intente conectar
+        if not test_cap.isOpened():
+            CAMERA_ACTIVE = False
+            CAMERA_STATUS = "OFFLINE"
+            app.state.camera_active = CAMERA_ACTIVE
+            app.state.camera_status = CAMERA_STATUS
+            # Diagnóstico básico de errores RTSP/HTTP
+            msg = "ERROR: No se pudo conectar a la cámara remota.\n\n"
+            msg += "Sugerencias para depurar:\n"
+            if not (src.startswith("rtsp://") or src.startswith("http://")):
+                msg += "- La URL debe iniciar con 'rtsp://' o 'http://'. Verifica el formato.\n"
+            msg += "- Verifica que la IP/dominio, usuario, contraseña y puerto sean correctos.\n"
+            msg += "- Asegúrate de que la cámara esté encendida y accesible desde esta red.\n"
+            msg += "- Si la cámara requiere usuario/contraseña, revisa que sean válidos.\n"
+            msg += "- Prueba la URL en VLC, navegador o reproductor compatible para descartar problemas de red.\n"
+            msg += "- Si la cámara está ocupada por otro software, ciérralo e inténtalo de nuevo.\n"
+            msg += "\nEjemplo de URL RTSP: rtsp://usuario:contraseña@ip:puerto/stream\n"
+            msg += "Ejemplo de URL HTTP: http://ip:puerto/ruta"
+            return PlainTextResponse(msg, status_code=400)
+        # Si se abrió, pero no se reciben frames, también es un error común
+        ret, _ = test_cap.read()
+        if not ret:
+            test_cap.release()
+            CAMERA_ACTIVE = False
+            CAMERA_STATUS = "OFFLINE"
+            app.state.camera_active = CAMERA_ACTIVE
+            app.state.camera_status = CAMERA_STATUS
+            msg = "ERROR: Se conectó a la cámara pero no se reciben imágenes.\n\n"
+            msg += "Sugerencias:\n"
+            msg += "- Verifica que el canal/stream de la cámara esté habilitado.\n"
+            msg += "- Prueba la URL en VLC para ver si hay video.\n"
+            msg += "- Revisa la configuración de la cámara (resolución, codec, etc).\n"
+            return PlainTextResponse(msg, status_code=400)
+        test_cap.release()
         capture_thread = CameraCapture(src, frame_queue, max_fps=15)
         capture_thread.start()
         CAMERA_ACTIVE = True
@@ -316,7 +460,8 @@ async def set_camera_url(url: str = Form(...)):
         CAMERA_STATUS = "OFFLINE"
         app.state.camera_active = CAMERA_ACTIVE
         app.state.camera_status = CAMERA_STATUS
-        return f"ERROR: {e}"
+        msg = f"ERROR: {e}\n\nSugerencias:\n- Verifica el formato de la URL y la conectividad de red.\n- Consulta los logs del sistema para más detalles."
+        return PlainTextResponse(msg, status_code=500)
     return "OK"
 
 from fastapi import Request, HTTPException, status
@@ -389,7 +534,12 @@ async def login_page(request: Request):
 
 @app.get("/status")
 async def get_status():
-    return {"status": "ok"}
+    # Cargar la URL configurada de la cámara
+    camera_url = load_camera_url()
+    return {
+        "status": CAMERA_STATUS,
+        "camera_url": camera_url
+    }
 
 @app.get("/reports/daily")
 async def daily_report():
@@ -405,3 +555,8 @@ async def weekly_report():
 async def monthly_report():
     path = generate_monthly_report()
     return FileResponse(path, media_type="application/pdf", filename="monthly_report.pdf")
+
+@app.get("/durations")
+async def get_durations():
+    # Devuelve datos de ejemplo o tu lógica real
+    return {"durations": []}

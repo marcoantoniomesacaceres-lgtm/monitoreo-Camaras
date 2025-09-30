@@ -1,23 +1,48 @@
-2025-09-29 08:49:03,403 | INFO | root | 🚀 Aplicación iniciada
-2025-09-29 08:49:05,765 | INFO | root | ✅ Modelo YOLO cargado exitosamente
-2025-09-29 08:49:05,812 | INFO | root | Iniciando storage.init_db()
-2025-09-29 08:49:05,813 | INFO | modules.storage | [init_db] Adquiriendo lock de base de datos
-2025-09-29 08:49:05,813 | INFO | modules.storage | [init_db] Lock adquirido, obteniendo conexión
-2025-09-29 08:49:05,834 | INFO | modules.storage | [init_db] Conexión obtenida, creando cursor
-2025-09-29 08:49:05,835 | INFO | modules.storage | [init_db] Creando tabla events si no existe
-2025-09-29 08:49:05,864 | INFO | modules.storage | [init_db] Creando tabla active_sessions si no existe
-2025-09-29 08:49:05,865 | INFO | modules.storage | [init_db] Commit de creación de tablas
-2025-09-29 08:49:05,866 | INFO | modules.storage | [init_db] Llamando a ensure_schema()
-2025-09-29 08:49:05,867 | INFO | modules.storage | [ensure_schema] Lock adquirido, obteniendo conexión
-2025-09-29 08:49:05,867 | INFO | modules.storage | [ensure_schema] Conexión obtenida: <sqlite3.Connection object at 0x00000227A3C37790>
-2025-09-29 08:49:05,867 | INFO | modules.storage | [ensure_schema] Creando cursor
-2025-09-29 08:49:05,867 | INFO | modules.storage | [ensure_schema] Cursor creado
-2025-09-29 08:49:05,868 | INFO | modules.storage | [ensure_schema] Intentando ALTER TABLE para person_id
-2025-09-29 08:49:05,868 | INFO | modules.storage | [ensure_schema] La columna person_id ya existe o la tabla no está creada
-2025-09-29 08:49:05,868 | INFO | modules.storage | [ensure_schema] Commit final antes de conn.commit()
-2025-09-29 08:49:05,869 | INFO | modules.storage | [ensure_schema] Commit realizado
-2025-09-29 08:49:05,869 | INFO | modules.storage | ✅ Base de datos lista en data\database.db
-2025-09-29 08:49:05,870 | INFO | root | storage.init_db() completado
-2025-09-29 08:49:05,871 | INFO | root | ✅ Base de datos inicializada
-2025-09-29 09:08:29,863 | INFO | modules.storage | ℹ️ Conexión DB cerrada
-2025-09-29 09:08:29,902 | INFO | root | 🛑 Conexión a base de datos cerrada correctamente
+2025-09-30 08:45:23,445 | INFO | root | 🚀 Aplicación iniciada
+2025-09-30 08:45:24,258 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-30 08:45:24,301 | INFO | root | Iniciando storage.init_db()
+2025-09-30 08:45:24,301 | INFO | modules.storage | [init_db] Adquiriendo lock de base de datos
+2025-09-30 08:45:24,302 | INFO | modules.storage | [init_db] Lock adquirido, obteniendo conexión
+2025-09-30 08:45:24,316 | INFO | modules.storage | [init_db] Conexión obtenida, creando cursor
+2025-09-30 08:45:24,316 | INFO | modules.storage | [init_db] Creando tabla events si no existe
+2025-09-30 08:45:24,334 | INFO | modules.storage | [init_db] Creando tabla active_sessions si no existe
+2025-09-30 08:45:24,335 | INFO | modules.storage | [init_db] Commit de creación de tablas
+2025-09-30 08:45:24,335 | INFO | modules.storage | [init_db] Llamando a ensure_schema()
+2025-09-30 08:45:24,336 | INFO | modules.storage | [ensure_schema] Lock adquirido, obteniendo conexión
+2025-09-30 08:45:24,336 | INFO | modules.storage | [ensure_schema] Conexión obtenida: <sqlite3.Connection object at 0x000001FAD97CC400>
+2025-09-30 08:45:24,336 | INFO | modules.storage | [ensure_schema] Creando cursor
+2025-09-30 08:45:24,336 | INFO | modules.storage | [ensure_schema] Cursor creado
+2025-09-30 08:45:24,337 | INFO | modules.storage | [ensure_schema] Intentando ALTER TABLE para person_id
+2025-09-30 08:45:24,337 | INFO | modules.storage | [ensure_schema] La columna person_id ya existe o la tabla no está creada
+2025-09-30 08:45:24,338 | INFO | modules.storage | [ensure_schema] Commit final antes de conn.commit()
+2025-09-30 08:45:24,338 | INFO | modules.storage | [ensure_schema] Commit realizado
+2025-09-30 08:45:24,339 | INFO | modules.storage | ✅ Base de datos lista en data\database.db
+2025-09-30 08:45:24,340 | INFO | root | storage.init_db() completado
+2025-09-30 08:45:24,340 | INFO | root | ✅ Base de datos inicializada
+2025-09-30 09:21:04,450 | INFO | root | 🎥 Captura iniciada
+2025-09-30 09:24:06,781 | INFO | root | 🎥 Captura detenida
+2025-09-30 09:24:10,246 | INFO | root | 🎥 Captura iniciada
+2025-09-30 09:25:29,765 | INFO | root | 🚀 Aplicación iniciada
+2025-09-30 09:25:30,160 | INFO | root | ✅ Modelo YOLO cargado exitosamente
+2025-09-30 09:25:30,171 | INFO | root | Iniciando storage.init_db()
+2025-09-30 09:25:30,171 | INFO | modules.storage | [init_db] Adquiriendo lock de base de datos
+2025-09-30 09:25:30,171 | INFO | modules.storage | [init_db] Lock adquirido, obteniendo conexión
+2025-09-30 09:25:30,178 | INFO | modules.storage | [init_db] Conexión obtenida, creando cursor
+2025-09-30 09:25:30,178 | INFO | modules.storage | [init_db] Creando tabla events si no existe
+2025-09-30 09:25:30,187 | INFO | modules.storage | [init_db] Creando tabla active_sessions si no existe
+2025-09-30 09:25:30,188 | INFO | modules.storage | [init_db] Commit de creación de tablas
+2025-09-30 09:25:30,189 | INFO | modules.storage | [init_db] Llamando a ensure_schema()
+2025-09-30 09:25:30,189 | INFO | modules.storage | [ensure_schema] Lock adquirido, obteniendo conexión
+2025-09-30 09:25:30,189 | INFO | modules.storage | [ensure_schema] Conexión obtenida: <sqlite3.Connection object at 0x0000023B208EC400>
+2025-09-30 09:25:30,190 | INFO | modules.storage | [ensure_schema] Creando cursor
+2025-09-30 09:25:30,190 | INFO | modules.storage | [ensure_schema] Cursor creado
+2025-09-30 09:25:30,191 | INFO | modules.storage | [ensure_schema] Intentando ALTER TABLE para person_id
+2025-09-30 09:25:30,191 | INFO | modules.storage | [ensure_schema] La columna person_id ya existe o la tabla no está creada
+2025-09-30 09:25:30,192 | INFO | modules.storage | [ensure_schema] Commit final antes de conn.commit()
+2025-09-30 09:25:30,192 | INFO | modules.storage | [ensure_schema] Commit realizado
+2025-09-30 09:25:30,192 | INFO | modules.storage | ✅ Base de datos lista en data\database.db
+2025-09-30 09:25:30,192 | INFO | root | storage.init_db() completado
+2025-09-30 09:25:30,192 | INFO | root | ✅ Base de datos inicializada
+2025-09-30 09:25:59,190 | INFO | root | 🎥 Captura iniciada
+2025-09-30 09:26:09,234 | INFO | root | 🎥 Captura detenida
+2025-09-30 09:26:12,006 | INFO | root | 🎥 Captura iniciada

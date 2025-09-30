@@ -66,15 +66,17 @@
 
     <!-- Configuración de cámara IP -->
     <section class="camera-config mb-4">
-      <h3>🔧 Configurar URL de Cámara IP</h3>
+      <h3>🔧 Configurar Cámara IP</h3>
       <form id="cameraUrlForm" class="row g-2 align-items-center">
-        <div class="col-auto">
-          <input type="text" class="form-control" id="cameraUrlInput" placeholder="rtsp://usuario:pass@ip:puerto/ o 0 para webcam" style="width: 350px;">
+        <div class="col-md-10">
+          <input type="text" class="form-control" id="cameraUrlFull" placeholder="Pega aquí la URL completa de la cámara (ej: rtsp://usuario:pass@ip:puerto/ruta o http://ip:puerto/ruta)">
         </div>
-        <div class="col-auto">
-          <button type="submit" class="btn btn-success">Guardar</button>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-success w-100">Guardar</button>
         </div>
-        <div class="col-auto" id="cameraUrlMsg"></div>
+        <div class="col-12">
+          <div id="cameraUrlMsg" class="alert" style="display:none;"></div>
+        </div>
       </form>
     </section>
   </div>
@@ -118,9 +120,16 @@
       const cameraStatus = document.getElementById("cameraStatus");
       cameraStatus.textContent = traducirEstado(estado);
       cameraStatus.className = "";
-      if (estado.toLowerCase() === "online") cameraStatus.classList.add("status-online");
-      if (estado.toLowerCase() === "offline") cameraStatus.classList.add("status-offline");
-      if (estado.toLowerCase() === "reconnecting") cameraStatus.classList.add("status-reconnecting");
+      const btn = document.getElementById("toggleCameraBtn");
+      if (estado.toLowerCase() === "online") {
+        cameraStatus.classList.add("status-online");
+        btn.textContent = "Detener video";
+      } else {
+        if (estado.toLowerCase() === "offline") cameraStatus.classList.add("status-offline");
+        if (estado.toLowerCase() === "reconnecting") cameraStatus.classList.add("status-reconnecting");
+        btn.textContent = "Video en vivo";
+        stopStream();
+      }
     }
 
     async function updateStatus() {
@@ -146,20 +155,30 @@
     async function toggleCamera() {
       try {
         const token = localStorage.getItem("token");
+        // Detectar si la cámara está activa leyendo el estado
+        const statusRes = await fetch("/status", { headers: { "Authorization": `Bearer ${token}` } });
+        const statusData = await statusRes.json();
+        const activar = !statusData.camera_active;
         const res = await fetch("/toggle_camera", {
           method: "POST",
-          headers: { "Authorization": `Bearer ${token}` }
+          headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ active: activar })
         });
         const data = await res.json();
         actualizarEstadoCamera(data.camera_status ?? "offline");
-
-        if (data.camera_active) {
+        const btn = document.getElementById("toggleCameraBtn");
+        if (activar && data.success) {
+          btn.textContent = "Detener video";
           startStream();
-        } else {
+        } else if (!activar && data.success) {
+          btn.textContent = "Video en vivo";
           stopStream();
+        } else {
+          document.getElementById("status").textContent = data.message || "Error alternando cámara";
         }
       } catch (e) {
         console.error("❌ Error alternando cámara:", e);
+        document.getElementById("status").textContent = "❌ Error alternando cámara";
       }
     }
 
@@ -246,16 +265,26 @@
     }
 
     // Cargar la URL actual de la cámara al iniciar
+
+  // Al cargar, si tienes una URL guardada, puedes descomponerla y rellenar los campos:
   fetch('/camera_url')
     .then(res => res.text())
     .then(url => {
-      document.getElementById('cameraUrlInput').value = url;
+      document.getElementById('cameraUrlFull').value = url;
     });
 
   document.getElementById('cameraUrlForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const url = document.getElementById('cameraUrlInput').value;
+    const url = document.getElementById('cameraUrlFull').value.trim();
     const msg = document.getElementById('cameraUrlMsg');
+    msg.style.display = 'block';
+    // Validación básica de URL
+    if (!url.match(/^(rtsp|http):\/\//)) {
+      msg.className = 'alert alert-warning';
+      msg.textContent = 'Por favor ingresa una URL válida que comience con rtsp:// o http://';
+      return;
+    }
+    msg.className = 'alert alert-info';
     msg.textContent = 'Guardando...';
     try {
       const res = await fetch('/camera_url', {
@@ -264,12 +293,17 @@
         body: new URLSearchParams({ url })
       });
       if (res.ok) {
-        msg.textContent = '✅ Guardado';
+        msg.className = 'alert alert-success';
+        msg.textContent = '✅ Cámara guardada correctamente.';
+        setTimeout(() => { msg.style.display = 'none'; }, 2500);
       } else {
-        msg.textContent = '❌ Error al guardar';
+        const errorText = await res.text();
+        msg.className = 'alert alert-danger';
+        msg.textContent = '❌ ' + (errorText || 'Error al guardar la cámara.');
       }
     } catch {
-      msg.textContent = '❌ Error de red';
+      msg.className = 'alert alert-danger';
+      msg.textContent = '❌ Error de red al guardar la cámara.';
     }
   });
 
@@ -281,5 +315,7 @@
       updateDurations();
     };
   </script>
+  // Exponer toggleCamera globalmente para el botón
+  window.toggleCamera = toggleCamera;
 </body>
 </html>
