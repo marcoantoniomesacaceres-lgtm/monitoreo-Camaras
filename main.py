@@ -214,6 +214,15 @@ logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 logger.info("🚀 Aplicación iniciada")
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+)
+logger = logging.getLogger("root")
+
+camera = None
+capturing = False
+
 # -----------------------------
 # 🚀 FastAPI App
 # -----------------------------
@@ -560,3 +569,26 @@ async def monthly_report():
 async def get_durations():
     # Devuelve datos de ejemplo o tu lógica real
     return {"durations": []}
+
+@app.post("/toggle_camera")
+@app.get("/toggle_camera")
+async def toggle_camera(request: Request):
+    global camera, capturing
+    client_host = request.client.host
+    logger.info(f"📡 Endpoint /toggle_camera llamado desde {client_host}")
+
+    if capturing:
+        logger.info("🛑 Deteniendo captura manualmente")
+        capturing = False
+        if camera:
+            camera.release()
+            camera = None
+        return {"status": "stopped"}
+    else:
+        logger.info("▶️ Iniciando captura manualmente")
+        camera = cv2.VideoCapture("rtsp://usuario:pass@192.168.20.93:8554/stream")
+        if not camera.isOpened():
+            logger.error("❌ Error al abrir la cámara. Verifica URL/credenciales")
+            return {"status": "error", "message": "No se pudo abrir la cámara"}
+        capturing = True
+        return {"status": "started"}
