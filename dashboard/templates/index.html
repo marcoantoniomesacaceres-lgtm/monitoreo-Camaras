@@ -265,10 +265,13 @@
     }
 
     // Cargar la URL actual de la cámara al iniciar
-
-  // Al cargar, si tienes una URL guardada, puedes descomponerla y rellenar los campos:
-  fetch('/camera_url')
-    .then(res => res.text())
+  const token = localStorage.getItem("token");
+  fetch('/camera_url', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(res => res.ok ? res.text() : Promise.reject('No se pudo cargar la URL'))
     .then(url => {
       document.getElementById('cameraUrlFull').value = url;
     });
@@ -289,7 +292,10 @@
     try {
       const res = await fetch('/camera_url', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        },
         body: new URLSearchParams({ url })
       });
       if (res.ok) {

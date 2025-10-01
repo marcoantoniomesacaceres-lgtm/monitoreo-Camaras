@@ -1,12 +1,12 @@
-from datetime import datetime, timedelta
-from typing import Optional
+from datetime import datetime, timedelta, timezone
+from typing import Optional, Union
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Request, Cookie
 from fastapi.security import OAuth2PasswordBearer
 
 # 📦 Importar conexión a SQLite
-from modules import storage  
+from modules import storage
 
 # 🔐 Clave secreta para firmar tokens (⚠️ en producción usar variable de entorno)
 SECRET_KEY = "mi_super_secreto"
@@ -17,7 +17,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Dependencia para extraer token Bearer
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login", auto_error=False)
 
 # ==============================
 # 🔑 Funciones de seguridad
@@ -52,31 +52,29 @@ def authenticate_user(username: str, password: str):
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Genera un JWT con expiración."""
     to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-from fastapi import Request
-from fastapi import Cookie
-from typing import Union
+async def get_token_from_request(request: Request, token: Optional[str] = Depends(oauth2_scheme)):
+    """
+    Intenta obtener el token del header 'Authorization'.
+    Este es el método estándar de OAuth2.
+    """
+    return token
 
-def get_token_from_request(request: Request, token: Union[str, None] = Depends(oauth2_scheme)):
-    # Si el token viene del header Authorization, úsalo
-    if token:
-        return token
-    # Si no, intenta obtenerlo de la cookie
-    cookie_token = request.cookies.get("access_token")
-    if cookie_token:
-        return cookie_token
-    return None
-
-def get_current_user(request: Request, token: Union[str, None] = Depends(get_token_from_request)):
+async def get_current_user(request: Request, token: Optional[str] = Depends(oauth2_scheme)):
     """Decodifica el JWT y obtiene el usuario actual de SQLite."""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Credenciales inválidas o token caducado",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
+    # Si el token no viene en el header, intenta obtenerlo de la cookie.
+    if token is None:
+        token = request.cookies.get("access_token")
+
     if not token:
         raise credentials_exception
     try:
